@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
+import { Header, Footer } from "./components/";
+import Routes from "./routes/routes";
 
 class App extends Component {
   state = {
@@ -13,9 +16,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Real estate web app</h1>
-      </div>
+      <BrowserRouter>
+        <React.Fragment>
+          <Header />
+          <Routes />
+          <Footer />
+        </React.Fragment>
+      </BrowserRouter>
     );
   }
 }
