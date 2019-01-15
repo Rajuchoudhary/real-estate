@@ -7,7 +7,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const data = await axios.get("localhost:5000");
+    const data = await axios.get("/");
     console.log(data);
   }
 
