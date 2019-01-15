@@ -1,0 +1,26 @@
+{
+  "name": "real-estate",
+  "version": "1.0.0",
+  "description": "Real Estate project to list properties",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rajuchoudhary/real-estate.git"
+  },
+  "keywords": [
+    "real",
+    "estate"
+  ],
+  "author": "Raju Choudhary",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rajuchoudhary/real-estate/issues"
+  },
+  "homepage": "https://github.com/Rajuchoudhary/real-estate#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
