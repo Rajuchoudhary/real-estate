@@ -2,6 +2,7 @@ require("express-async-errors");
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 const user = require("./routes/user");
 
@@ -24,6 +25,12 @@ mongoose
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//Passport Middleware
+app.use(passport.initialize());
+
+//Config Passport stratergy
+require("./config/passport")(passport);
 
 //API Route
 app.use("/api/user", user);
