@@ -1,10 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions";
 
 class LoginPage extends React.Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    errors: {}
   };
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
 
   onFormSubmit = e => {
     e.preventDefault();
@@ -12,7 +31,7 @@ class LoginPage extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(loginDetail);
+    this.props.loginUser(loginDetail);
   };
 
   onInputChange = ({ currentTarget }) => {
@@ -66,4 +85,14 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = state => {
+  return {
+    errors: state.errors,
+    auth: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(LoginPage);

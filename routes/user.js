@@ -1,4 +1,3 @@
-const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const express = require("express");
@@ -6,17 +5,24 @@ const router = express.Router();
 const keys = require("../config/keys");
 const passport = require("passport");
 
+//Load validation function
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
+
 //Load Agent Model
 const Agent = require("../models/Agent");
 
+router.get("/extra", (req, res) => {
+  res.send("hi there");
+});
+
 // @Route api/user/register
 router.post("/register", async (req, res) => {
-  const errors = {};
   const { name, email, password } = req.body;
 
   //validate registration detail
-  const { error } = validatRegister(req.body);
-  if (error) return res.status(400).send(error.details);
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) return res.status(400).send(errors);
 
   //check if user already exists
 
@@ -41,7 +47,13 @@ router.post("/register", async (req, res) => {
 
 //@Route api/user/login
 router.post("/login", async (req, res) => {
-  const errors = {};
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).send(errors);
+  }
+
   const { email, password } = req.body;
 
   const agent = await Agent.findOne({ email: email });
@@ -78,22 +90,5 @@ router.get(
     res.status(200).send(req.user);
   }
 );
-
-function validatRegister(data) {
-  const schema = {
-    name: Joi.string()
-      .min(3)
-      .max(30)
-      .required(),
-    email: Joi.string()
-      .required()
-      .email(),
-    password: Joi.string()
-      .min(8)
-      .max(100)
-      .required()
-  };
-  return Joi.validate(data, schema, { abortEarly: false });
-}
 
 module.exports = router;

@@ -1,12 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions";
 
 class RegistrationPage extends React.Component {
   state = {
-    fullName: "",
+    name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    errors: {}
   };
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
 
   onInputChange = ({ currentTarget }) => {
     this.setState({
@@ -17,15 +32,18 @@ class RegistrationPage extends React.Component {
   onFormSubmit = e => {
     e.preventDefault();
     const registrationDetail = {
-      fullName: this.state.fullName,
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(registrationDetail);
+
+    this.props.registerUser(registrationDetail, this.props.history);
   };
 
   render() {
+    console.log(this.state.errors);
+
     return (
       <div className="container">
         <div className="row my-5">
@@ -38,13 +56,25 @@ class RegistrationPage extends React.Component {
                 <label htmlFor="email">Full Name:</label>
                 <input
                   type="text"
-                  className="form-control is-valid"
+                  className={
+                    this.state.errors.name
+                      ? "form-control is-invalid"
+                      : "form-control is-valid"
+                  }
                   placeholder="your full name"
-                  name="fullName"
+                  name="name"
                   onChange={this.onInputChange}
-                  value={this.state.fullName}
+                  value={this.state.name}
                 />
-                <div className="valid-feedback">Looks good!</div>
+                <div
+                  className={
+                    this.state.errors.name
+                      ? "invalid-feedback"
+                      : "valid-feedback"
+                  }
+                >
+                  {this.state.errors.name}
+                </div>
               </div>
 
               <div className="form-group">
@@ -98,4 +128,14 @@ class RegistrationPage extends React.Component {
   }
 }
 
-export default RegistrationPage;
+const mapStateToProps = state => {
+  return {
+    errors: state.errors,
+    auth: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(RegistrationPage);

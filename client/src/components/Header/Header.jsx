@@ -1,8 +1,35 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import { NavLink, Link } from "react-router-dom";
 
 class Header extends React.Component {
+  onlogoutClick = () => {
+    this.props.clearCurrentUser();
+    this.props.logoutUser();
+  };
+
   render() {
+    const authLinks = (
+      <NavLink
+        onClick={this.onlogoutClick}
+        className="nav-item nav-link"
+        to="/"
+      >
+        Logout
+      </NavLink>
+    );
+    const guestLinks = (
+      <React.Fragment>
+        <NavLink className="nav-item nav-link" to="/registration">
+          Register
+        </NavLink>
+        <NavLink className="nav-item nav-link" to="/login">
+          Login
+        </NavLink>
+      </React.Fragment>
+    );
+
     return (
       <header style={{ width: "100%" }} className="bg-light">
         <div className="container">
@@ -41,12 +68,7 @@ class Header extends React.Component {
                 <NavLink className="nav-item nav-link" to="/contact">
                   Contact
                 </NavLink>
-                <NavLink className="nav-item nav-link" to="/registration">
-                  Register
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/login">
-                  Login
-                </NavLink>
+                {this.props.auth.isAuthenticated ? authLinks : guestLinks}
               </div>
             </div>
           </nav>
@@ -56,4 +78,13 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(Header);
