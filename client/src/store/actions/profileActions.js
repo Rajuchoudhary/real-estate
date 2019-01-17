@@ -1,7 +1,34 @@
-import { CLEAR_CURRENT_PROFILE } from "../types";
+import { SET_PROFILE, GET_ERRORS } from "../types";
+import axios from "axios";
 
-export const clearCurrentProfile = () => {
+export const updateProfile = profileDetails => async dispatch => {
+  try {
+    const profile = await axios.post("/api/profile/update", profileDetails);
+    dispatch(setProfile(profile.data));
+  } catch (err) {
+    console.log(err.response.data);
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const getProfile = id => async dispatch => {
+  try {
+    const profile = await axios.get(`/api/profile/${id}`);
+    dispatch(setProfile(profile));
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const setProfile = profile => {
   return {
-    type: CLEAR_CURRENT_PROFILE
+    type: SET_PROFILE,
+    payload: profile
   };
 };

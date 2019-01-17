@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const agentSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -21,6 +21,6 @@ const agentSchema = new Schema({
   }
 });
 
-const Agent = mongoose.model("Agent", agentSchema);
+const User = mongoose.model("User", userSchema);
 
-module.exports = Agent;
+module.exports = User;

@@ -1,17 +1,18 @@
-import { CLEAR_CURRENT_PROFILE } from "../actions/types";
+import { SET_PROFILE } from "../types";
 
 const initialState = {
   profile: null,
   profiles: null,
-  loading: false
+  loading: true
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case CLEAR_CURRENT_PROFILE:
+    case SET_PROFILE:
       return {
         ...state,
-        profile: null
+        profile: action.payload,
+        loading: false
       };
     default:
       return state;

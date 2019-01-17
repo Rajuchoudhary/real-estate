@@ -9,8 +9,8 @@ const passport = require("passport");
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
-//Load Agent Model
-const Agent = require("../models/Agent");
+//Load User Model
+const User = require("../models/User");
 
 router.get("/extra", (req, res) => {
   res.send("hi there");
@@ -26,21 +26,21 @@ router.post("/register", async (req, res) => {
 
   //check if user already exists
 
-  const agent = await Agent.findOne({ email: email });
+  const user = await User.findOne({ email: email });
 
-  if (agent) {
+  if (user) {
     errors.email = "Email already exists";
     res.status(400).send(errors);
   } else {
-    const newAgent = new Agent({
+    const newUser = new User({
       name,
       email,
       password
     });
 
     const salt = await bcrypt.genSalt(10);
-    newAgent.password = await bcrypt.hash(newAgent.password, salt);
-    await newAgent.save();
+    newUser.password = await bcrypt.hash(newUser.password, salt);
+    await newUser.save();
     res.status(200).send({ name, email });
   }
 });
@@ -56,19 +56,19 @@ router.post("/login", async (req, res) => {
 
   const { email, password } = req.body;
 
-  const agent = await Agent.findOne({ email: email });
-  if (!agent) {
+  const user = await User.findOne({ email: email });
+  if (!user) {
     errors.email = "user not found";
     res.status(400).send(errors);
   } else {
-    const isMatch = await bcrypt.compare(password, agent.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       // res.status(200).send("success");
 
       const payload = {
-        id: agent.id,
-        name: agent.name,
-        email: agent.email
+        id: user.id,
+        name: user.name,
+        email: user.email
       };
 
       const token = jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 });
