@@ -3,11 +3,32 @@ import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 
 class Dashboard extends React.Component {
+  state = {
+    name: "",
+    about: "",
+    email: "",
+    mobile: "",
+    skype: "",
+    website: "",
+    address: "",
+    country: "",
+    facebook: "",
+    twitter: "",
+    linkedin: ""
+  };
+
   // componentDidMount() {
   //   if (!this.props.auth.isAuthenticated) {
   //     this.props.history.push("/");
   //   }
   // }
+
+  onInputChange = e => {
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    });
+  };
+
   render() {
     return (
       <div className="container-fluid">
@@ -37,7 +58,7 @@ class Dashboard extends React.Component {
           </div>
 
           {/* right section */}
-          <div className="m-auto col-lg-8 col-md-8 col-sm-12  p-2  ">
+          <div className="m-auto col-lg-8 col-md-8 col-sm-12 pb-5  ">
             <div className="">
               <Link
                 to="/agent/properties"
@@ -55,21 +76,39 @@ class Dashboard extends React.Component {
                     <div className="basic-info border border-dark p-3">
                       <strong className="text-muted">Basic info</strong>
                       <div className="form-group">
-                        <label htmlFor="AgentTitle">Name :</label>
+                        <label htmlFor="name">Name :</label>
                         <input
                           type="text"
                           className="form-control is-valid"
                           placeholder="Agent title..."
-                          name="AgentTitle"
+                          name="name"
                         />
                         <div className="valid-feedback">Looks good!</div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="description">About :</label>
+                        <label htmlFor="inputState">Country</label>
+                        <select className="form-control">
+                          <option defaultValue>Choose...</option>
+                          <option>India</option>
+                          <option>USA</option>
+                          <option>UK</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="address">Address :</label>
                         <textarea
                           className="form-control is-valid"
-                          placeholder="description..."
-                          name="description"
+                          placeholder="address..."
+                          name="address"
+                        />
+                        <div className="valid-feedback">Looks good!</div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="about">About :</label>
+                        <textarea
+                          className="form-control is-valid"
+                          placeholder="about..."
+                          name="about"
                         />
                         <div className="valid-feedback">Looks good!</div>
                       </div>
@@ -124,64 +163,8 @@ class Dashboard extends React.Component {
                   </div>
                   {/* <!-- form right --> */}
                   <div className="col-lg-6 col-md-6 col-sm-12">
-                    {/* <!-- Location --> */}
-                    <div className="location border border-dark p-3 ">
-                      <strong className="text-muted">Address</strong>
-                      <div className="form-group">
-                        <textarea
-                          className="form-control is-valid"
-                          placeholder="address..."
-                          name="Address"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <label htmlFor="inputState">Country</label>
-                        <select className="form-control">
-                          <option defaultValue>Choose...</option>
-                          <option>India</option>
-                          <option>USA</option>
-                          <option>UK</option>
-                        </select>
-                      </div>
-
-                      <div className="form-group">
-                        <label htmlFor="inputState">State</label>
-                        <input
-                          type="text"
-                          className="form-control is-invalid"
-                          name="state"
-                          placeholder="state..."
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="city">City :</label>
-                        <input
-                          type="text"
-                          className="form-control is-invalid"
-                          name="city"
-                          placeholder="city..."
-                        />
-                        <div className="invalid-feedback">
-                          Password incorrect
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="zip">ZIP :</label>
-                        <input
-                          type="text"
-                          className="form-control is-invalid"
-                          name="zip"
-                          placeholder="zip..."
-                        />
-                        <div className="invalid-feedback">
-                          Password incorrect
-                        </div>
-                      </div>
-                    </div>
-
                     {/* <!-- Social media --> */}
-                    <div className="contact-info border border-dark p-3 my-3">
+                    <div className="contact-info border border-dark p-3">
                       <strong className="text-muted">Social accounts :</strong>
 
                       <div className="form-group">
@@ -219,7 +202,7 @@ class Dashboard extends React.Component {
 
                   <input
                     type="submit"
-                    className="btn btn-primary btn-block mx-3"
+                    className="btn btn-primary btn-block mx-3 mt-5"
                     value="Update"
                   />
                 </div>
