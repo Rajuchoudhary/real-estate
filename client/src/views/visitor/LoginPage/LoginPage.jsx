@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import LoginPageUI from "./LoginPageUI";
 import * as actions from "../../../store/actions";
+import { Input } from "../../../components";
 
 class LoginPage extends React.Component {
   state = {
@@ -41,46 +43,24 @@ class LoginPage extends React.Component {
   };
   render() {
     return (
-      <div className="container">
-        <div className="row my-5">
-          <div className="col-lg-4 col-md-6 col-sm-8 offset-md-4 offset-sm-2 border p-3 pb-4">
-            <form onSubmit={this.onFormSubmit}>
-              <div className="title text-center display-4">Login</div>
-              <div className="form-group">
-                <label htmlFor="email">You email:</label>
-                <input
-                  type="text"
-                  className="form-control is-valid"
-                  placeholder="your email"
-                  name="email"
-                  onChange={this.onInputChange}
-                  value={this.state.email}
-                />
-                <div className="valid-feedback">Looks good!</div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password:</label>
-                <input
-                  type="password"
-                  className="form-control is-invalid"
-                  name="password"
-                  placeholder="password"
-                  onChange={this.onInputChange}
-                  value={this.state.password}
-                />
-                <div className="invalid-feedback">Password incorrect</div>
-              </div>
-              <div className="div">
-                <input
-                  type="submit"
-                  className="btn btn-primary btn-block"
-                  value="login"
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <LoginPageUI onFormSubmit={this.onFormSubmit}>
+        <Input
+          label="Your Email"
+          placeholder="email..."
+          name="email"
+          onChange={this.onInputChange}
+          value={this.state.value}
+        />
+
+        <Input
+          label="Password"
+          type="password"
+          placeholder="password..."
+          name="password"
+          onChange={this.onInputChange}
+          value={this.state.value}
+        />
+      </LoginPageUI>
     );
   }
 }

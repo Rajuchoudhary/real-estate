@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { NavLink, Link } from "react-router-dom";
+import { TextArea, Input } from "../../../components";
+import SelectList from "../../../components/FormElements/SelectList";
 
 class Dashboard extends React.Component {
   state = {
@@ -27,8 +29,8 @@ class Dashboard extends React.Component {
   }
 
   // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.profile.profile !== this.props.profile.profile) {
-  //     console.log(nextProps.profile.profile.data.user.name);
+  //   if (nextProps.profile.profile) {
+  //     console.log(nextProps.profile.profile.data);
 
   //     const profile = nextProps.profile.profile.data;
   //     this.setState({
@@ -65,6 +67,12 @@ class Dashboard extends React.Component {
   render() {
     const { profile, loading } = this.props.profile;
     let renderContent;
+    const options = [
+      { label: "Choose...", value: 0 },
+      { label: "India", value: "india" },
+      { label: "USA", value: "usa" },
+      { label: "UK", value: "uk" }
+    ];
 
     if (profile === null || loading) {
       renderContent = <p>loading...</p>;
@@ -87,18 +95,24 @@ class Dashboard extends React.Component {
                   {/* <!-- Basic info --> */}
                   <div className="basic-info border border-dark p-3">
                     <strong className="text-muted">Basic info</strong>
-                    <div className="form-group">
-                      <label htmlFor="name">Name :</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder={profile.data.user.name}
+
+                    <Input
+                      label="Name"
+                      name="name"
+                      placeholder="john doe"
+                      onChange={this.onInputChange}
+                      value={this.state.name}
+                    />
+                    {
+                      <SelectList
+                        label="Country"
+                        name="country"
                         onChange={this.onInputChange}
-                        value={this.state.name}
-                        name="name"
+                        value={this.state.country}
+                        options={options}
                       />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
+                    }
+
                     <div className="form-group">
                       <label htmlFor="inputState">Country</label>
                       <select
@@ -107,89 +121,67 @@ class Dashboard extends React.Component {
                         value={this.state.country}
                         name="country"
                       >
-                        <option defaultValue>Choose...</option>
-                        <option value="india">India</option>
+                        <option>Choose...</option>
+                        <option defaultValue={true} value="india">
+                          India
+                        </option>
                         <option value="usa">USA</option>
                         <option value="uk">UK</option>
                       </select>
                     </div>
-                    <div className="form-group">
-                      <label htmlFor="address">Address :</label>
-                      <textarea
-                        className="form-control is-valid"
-                        placeholder={profile.data.address}
-                        onChange={this.onInputChange}
-                        value={this.state.address}
-                        name="address"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="about">About :</label>
-                      <textarea
-                        className="form-control is-valid"
-                        placeholder={profile.data.about}
-                        onChange={this.onInputChange}
-                        value={this.state.about}
-                        name="about"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
+                    <TextArea
+                      label="Address"
+                      name="address"
+                      placeholder="your address"
+                      onChange={this.onInputChange}
+                      value={this.state.address}
+                    />
+
+                    <TextArea
+                      label="About"
+                      name="about"
+                      placeholder="few lines about your..."
+                      onChange={this.onInputChange}
+                      value={this.state.about}
+                    />
                   </div>
 
                   {/* <!-- Contact info --> */}
                   <div className="contact-info border border-dark p-3 mt-3">
                     <strong className="text-muted">Contact info</strong>
 
-                    <div className="form-group">
-                      <label htmlFor="email">Email :</label>
-                      <input
-                        type="email"
-                        className="form-control is-valid"
-                        onChange={this.onInputChange}
-                        value={this.state.email}
-                        name="email"
-                        placeholder="email..."
-                      />
-                      <div className="valid-feedback">Password incorrect</div>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="mobile">Mobile:</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="mobile no..."
-                        onChange={this.onInputChange}
-                        value={this.state.mobile}
-                        name="mobile"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="skype">Skype:</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="skype id..."
-                        onChange={this.onInputChange}
-                        value={this.state.skype}
-                        name="skype"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
+                    <Input
+                      type="email"
+                      label="Email"
+                      name="email"
+                      placeholder="your email..."
+                      onChange={this.onInputChange}
+                      value={this.state.email}
+                    />
 
-                    <div className="form-group">
-                      <label htmlFor="website">Website :</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="website..."
-                        onChange={this.onInputChange}
-                        value={this.state.website}
-                        name="website"
-                      />
-                      <div className="valid-feedback">Password incorrect</div>
-                    </div>
+                    <Input
+                      label="Mobile"
+                      name="mobile"
+                      placeholder="your mobile no..."
+                      onChange={this.onInputChange}
+                      value={this.state.mobile}
+                    />
+
+                    <Input
+                      label="Skype"
+                      name="skype"
+                      placeholder="user.auther5"
+                      onChange={this.onInputChange}
+                      value={this.state.skype}
+                    />
+
+                    <Input
+                      label="Website"
+                      name="website"
+                      placeholder="your website url"
+                      onChange={this.onInputChange}
+                      value={this.state.website}
+                    />
                   </div>
                 </div>
                 {/* <!-- form right --> */}
@@ -198,42 +190,29 @@ class Dashboard extends React.Component {
                   <div className="contact-info border border-dark p-3">
                     <strong className="text-muted">Social accounts :</strong>
 
-                    <div className="form-group">
-                      <label htmlFor="faebook">Facebook :</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="facebook profile url..."
-                        onChange={this.onInputChange}
-                        value={this.state.facebook}
-                        name="facebook"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="twitter">Twitter :</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="twitter profile link..."
-                        onChange={this.onInputChange}
-                        value={this.state.twitter}
-                        name="twitter"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="linkedin">LinkedIn :</label>
-                      <input
-                        type="text"
-                        className="form-control is-valid"
-                        placeholder="linkedin profile link..."
-                        onChange={this.onInputChange}
-                        value={this.state.linkedin}
-                        name="linkedin"
-                      />
-                      <div className="valid-feedback">Looks good!</div>
-                    </div>
+                    <Input
+                      label="Facebook"
+                      name="facebook"
+                      placeholder="facebook.com/your-user-name"
+                      onChange={this.onInputChange}
+                      value={this.state.facebook}
+                    />
+
+                    <Input
+                      label="Twitter"
+                      name="twitter"
+                      placeholder="twitter.com/your-user-name"
+                      onChange={this.onInputChange}
+                      value={this.state.twitter}
+                    />
+
+                    <Input
+                      label="Linkedin"
+                      name="linkedin"
+                      placeholder="linkedin.com/your-user-name"
+                      onChange={this.onInputChange}
+                      value={this.state.linkedin}
+                    />
                   </div>
                 </div>
 
