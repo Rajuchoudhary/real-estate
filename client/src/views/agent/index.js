@@ -1,3 +1,5 @@
 import Dashboard from "./Dashboard/Dashboard";
+import PropertyPage from "./PropertyPage/PropertyPage";
+import AddPropertyPage from "./AddPropertyPage/AddPropertyPage";
 
-export { Dashboard };
+export { AddPropertyPage, Dashboard, PropertyPage };
