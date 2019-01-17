@@ -6,6 +6,9 @@ const profileSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  about: {
+    type: String
+  },
   country: {
     type: String,
     required: true

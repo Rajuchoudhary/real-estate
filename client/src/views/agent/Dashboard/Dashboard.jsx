@@ -28,26 +28,24 @@ class Dashboard extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.profile.profile) {
-  //     console.log(nextProps.profile.profile.data);
-
-  //     const profile = nextProps.profile.profile.data;
-  //     this.setState({
-  //       name: profile.user.name,
-  //       country: profile.country,
-  //       address: profile.address,
-  //       about: profile.about,
-  //       email: profile.user.email,
-  //       mobile: profile.mobile + "",
-  //       skype: profile.skype,
-  //       website: profile.website,
-  //       facebook: profile.socialMedia.facebook,
-  //       twitter: profile.socialMedia.twitter,
-  //       linkedin: profile.socialMedia.linkedin
-  //     });
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+      this.setState({
+        name: profile.user.name,
+        country: profile.country,
+        address: profile.address,
+        about: profile.about,
+        email: profile.user.email,
+        mobile: profile.mobile + "",
+        skype: profile.skype,
+        website: profile.website,
+        facebook: profile.socialMedia.facebook,
+        twitter: profile.socialMedia.twitter,
+        linkedin: profile.socialMedia.linkedin
+      });
+    }
+  }
 
   onInputChange = e => {
     this.setState({
@@ -56,12 +54,25 @@ class Dashboard extends React.Component {
   };
 
   onFormSubmit = e => {
+    console.log("updaet cliek");
+
     e.preventDefault();
     const updateProfileDetails = {
-      ...this.state
+      name: this.state.name,
+      country: this.state.country,
+      address: this.state.address,
+      about: this.state.about,
+      email: this.state.email,
+      mobile: this.state.mobile + "",
+      skype: this.state.skype,
+      website: this.state.website,
+      facebook: this.state.facebook,
+      twitter: this.state.twitter,
+      linkedin: this.state.linkedin
     };
 
     this.props.updateProfile(updateProfileDetails);
+    console.log("update clicked 2");
   };
 
   render() {
@@ -103,32 +114,15 @@ class Dashboard extends React.Component {
                       onChange={this.onInputChange}
                       value={this.state.name}
                     />
-                    {
-                      <SelectList
-                        label="Country"
-                        name="country"
-                        onChange={this.onInputChange}
-                        value={this.state.country}
-                        options={options}
-                      />
-                    }
 
-                    <div className="form-group">
-                      <label htmlFor="inputState">Country</label>
-                      <select
-                        className="form-control"
-                        onChange={this.onInputChange}
-                        value={this.state.country}
-                        name="country"
-                      >
-                        <option>Choose...</option>
-                        <option defaultValue={true} value="india">
-                          India
-                        </option>
-                        <option value="usa">USA</option>
-                        <option value="uk">UK</option>
-                      </select>
-                    </div>
+                    <SelectList
+                      label="Country"
+                      name="country"
+                      onChange={this.onInputChange}
+                      value={this.state.country}
+                      options={options}
+                    />
+
                     <TextArea
                       label="Address"
                       name="address"

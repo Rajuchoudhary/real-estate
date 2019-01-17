@@ -82,13 +82,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//@Route api/user/current
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.status(200).send(req.user);
-  }
-);
-
 module.exports = router;

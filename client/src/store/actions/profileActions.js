@@ -3,10 +3,11 @@ import axios from "axios";
 
 export const updateProfile = profileDetails => async dispatch => {
   try {
+    console.log(profileDetails);
+
     const profile = await axios.post("/api/profile/update", profileDetails);
     dispatch(setProfile(profile.data));
   } catch (err) {
-    console.log(err.response.data);
     dispatch({
       type: GET_ERRORS,
       payload: err.response.data
@@ -17,7 +18,7 @@ export const updateProfile = profileDetails => async dispatch => {
 export const getProfile = id => async dispatch => {
   try {
     const profile = await axios.get(`/api/profile/${id}`);
-    dispatch(setProfile(profile));
+    dispatch(setProfile(profile.data));
   } catch (err) {
     dispatch({
       type: GET_ERRORS,

@@ -5,9 +5,22 @@ const passport = require("passport");
 
 //load profile model
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 
 //load validation function
 const validateUpdateProfile = require("../validation/profile");
+
+//@Route api/profile/
+// router.get(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const profile = await Profile.findOne({
+//       user: mongoose.Types.ObjectId(req.user.id)
+//     }).populate("user", ["-password"]);
+//     res.status(200).send(profile);
+//   }
+// );
 
 //@Route /api/profile/update
 router.post(
@@ -24,11 +37,9 @@ router.post(
     //get all fields
     const profileDetails = {
       user: req.user.id,
-      name: req.body.name,
       country: req.body.country,
       address: req.body.address,
       about: req.body.about,
-      email: req.body.email,
       mobile: req.body.mobile,
       skype: req.body.skype,
       website: req.body.website,
@@ -39,25 +50,23 @@ router.post(
       }
     };
 
-    console.log(req.user.id);
-
     const profile = await Profile.findOne({
       user: mongoose.Types.ObjectId(req.user.id)
     });
 
-    console.log("profile", profile);
-
     if (!profile) {
       const newProfile = await new Profile(profileDetails).save();
-
       res.status(200).send(newProfile);
     } else {
+      const updateUser = await User.findByIdAndUpdate(req.user.id, {
+        name: req.body.name,
+        email: req.body.email
+      });
       const newProfile = await Profile.findOneAndUpdate(
         { user: mongoose.Types.ObjectId(req.user.id) },
         { $set: profileDetails },
         { new: true }
-      );
-
+      ).populate("user", ["-password"]);
       res.status(200).send(newProfile);
     }
   }

@@ -20,6 +20,7 @@ export default function(state = initialState, action) {
         isAuthenticated: false,
         user: {}
       };
+
     default:
       return state;
   }
