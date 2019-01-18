@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 class CardTwo extends React.Component {
   render() {
     const {
+      title,
       agentId,
       agentName,
-      tag,
+      status,
       img,
       address,
       price,
@@ -18,13 +19,15 @@ class CardTwo extends React.Component {
       baths,
       garages
     } = this.props;
-    let tagColor = tag === "rent" ? "warning" : "success";
+    let statusColor = status === "rent" ? "warning" : "success";
     return (
       <React.Fragment>
         <div className="row">
           <div className="row shadow-sm border p-4 mb-3">
             <div className="col-lg-4 col-md-4 col-sm-8">
-              <span className={`badge badge-${tagColor}`}>{tag}</span>
+              <h4>{title}</h4>
+              <span className={`badge badge-${statusColor}`}>{status}</span>
+
               <img className="card-img-top" src={img} alt="Card cap" />
             </div>
             <div className="col-lg-8 col-md-8  col-sm-8">

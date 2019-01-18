@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { HomePage, NotFoundPage } from "../views/common";
+import { HomePage, NotFoundPage, PropertyListPage } from "../views/common";
 import { RegistrationPage, LoginPage } from "../views/visitor";
 import { AddPropertyPage, Dashboard, PropertyPage } from "../views/agent";
 
@@ -12,6 +12,7 @@ class Routes extends React.Component {
         <Route exact path="/Home" component={HomePage} />
         <Route path="/agent/dashboard" component={Dashboard} />
         <Route path="/agent/properties" component={PropertyPage} />
+        <Route path="/properties-list" component={PropertyListPage} />
         <Route path="/agent/add-property" component={AddPropertyPage} />
         <Route path="/registration" component={RegistrationPage} />
         <Route path="/login" component={LoginPage} />

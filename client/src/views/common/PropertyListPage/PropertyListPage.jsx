@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
+import { CardTwo } from "../../../components";
 
 class PropertyListPage extends React.Component {
   state = {
@@ -10,7 +11,7 @@ class PropertyListPage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.PropertiesList();
+    this.props.getAllProperties();
   }
 
   onInputChange = e => {
@@ -32,8 +33,10 @@ class PropertyListPage extends React.Component {
           renderComponent = properties.map(property => {
             return (
               <CardTwo
+                title={property.title}
                 key={property._id}
                 img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
+                status={property.status}
                 address={property.address}
                 price={property.price}
                 text={property.description}
@@ -74,10 +77,7 @@ class PropertyListPage extends React.Component {
             </form>
           </div>
         </div>
-        <div className="cards my-5">
-          <p>Total Properties: {totalCount}</p>
-          {renderComponent}
-        </div>
+        <div className="cards my-5">{renderComponent}</div>
       </div>
     );
   }
