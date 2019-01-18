@@ -4,4 +4,8 @@ module.exports = function(app) {
   app.use(proxy("/api/user/*", { target: "http://localhost:5000/" }));
   app.use(proxy("/api/profile/*", { target: "http://localhost:5000/" }));
   app.use(proxy("/api/profile/user/*", { target: "http://localhost:5000/" }));
+  app.use(proxy("/api/property/add", { target: "http://localhost:5000/" }));
+  app.use(
+    proxy("/api/property/update/*", { target: "http://localhost:5000/" })
+  );
 };

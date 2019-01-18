@@ -1,8 +1,93 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions";
+import { Input, TextArea, SelectList, CheckBox } from "../../../components/";
+import validatePropertyInput from "../../../validation/validatePropertyInput";
 
 class AddPropertyPage extends Component {
+  state = {
+    title: "",
+    price: "",
+    description: "",
+    address: "",
+    country: "",
+    state: "",
+    city: "",
+    zip: "",
+    propertyType: "",
+    status: "",
+    beds: "",
+    baths: "",
+    area: "",
+    garages: "",
+    ac: "",
+    gym: "",
+    bar: "",
+    internet: "",
+    microwave: "",
+    smoking: "",
+    fireplace: "",
+    toaster: "",
+    tennis: "",
+    tv: ""
+  };
+
+  handleInputChange = ({ currentTarget }) => {
+    const value =
+      currentTarget.type === "checkbox"
+        ? currentTarget.checked
+        : currentTarget.value;
+
+    this.setState({
+      [currentTarget.name]: value
+    });
+  };
+  onFormSubmit = e => {
+    e.preventDefault();
+
+    const propertyDetails = {
+      ...this.state
+    };
+
+    console.log(propertyDetails);
+    console.log(validatePropertyInput(propertyDetails));
+    if (validatePropertyInput(propertyDetails)) {
+      this.props.addProperty(propertyDetails);
+    }
+  };
+
+  numbersOnly = e => {
+    const price = e.currentTarget.value;
+
+    if (isNaN(price) || price === "0") {
+      e.currentTarget.value = "";
+    }
+
+    if (price) {
+    }
+  };
+
   render() {
+    const options = [
+      { label: "Select...", value: "" },
+      { label: "India", value: "india" },
+      { label: "USA", value: "usa" },
+      { label: "UK", value: "uk" }
+    ];
+    const propertyType = [
+      { label: "Select...", value: "" },
+      { label: "Apartment", value: "apartment" },
+      { label: "Flat", value: "flat" },
+      { label: "House", value: "house" },
+      { label: "Cottage", value: "cottage" }
+    ];
+
+    const propertyStatus = [
+      { label: "Select...", value: "" },
+      { label: "Rent", value: "rent" },
+      { label: "Sale", value: "sale" }
+    ];
     return (
       <div className="container-fluid">
         <div className="row">
@@ -40,39 +125,40 @@ class AddPropertyPage extends Component {
             </Link>
 
             {/* <!-- Add New Property --> */}
-            <form>
-              <div className="title text-center display-4 mb-4">
-                Add New Property
-              </div>
-
+            <div className="title text-center display-4 mb-4">
+              Add New Property
+            </div>
+            <form onSubmit={this.onFormSubmit}>
               <div className="basic-info">
                 <strong className="text-muted">Basic information</strong>
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="title">Title</label>
-                    <input
-                      type="text"
-                      name="title"
-                      className="form-control"
-                      placeholder="title..."
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label htmlFor="price">Price $$</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="price..."
-                    />
-                  </div>
-                  <div className="form-group  col-md-12">
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                      name="description"
-                      className="form-control"
-                      placeholder="description..."
-                    />
-                  </div>
+                  <Input
+                    classes="col-md-6"
+                    label="Title"
+                    name="title"
+                    placeholder="property title..."
+                    onChange={this.handleInputChange}
+                    value={this.state.title}
+                  />
+
+                  <Input
+                    classes="col-md-6"
+                    label="Price $$"
+                    name="price"
+                    placeholder="price..."
+                    onChange={this.handleInputChange}
+                    value={this.state.price}
+                    validate={this.numbersOnly}
+                  />
+
+                  <TextArea
+                    classes="col-md-12"
+                    label="Description"
+                    name="description"
+                    placeholder="description..."
+                    onChange={this.handleInputChange}
+                    value={this.state.description}
+                  />
                 </div>
               </div>
 
@@ -80,46 +166,48 @@ class AddPropertyPage extends Component {
 
               <div className="location">
                 <strong className="text-muted">Location</strong>
-                <div className="form-group">
-                  <label htmlFor="inputAddress">Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress"
-                    placeholder="1234 Main St"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="inputAddress2">Address 2</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress2"
-                    placeholder="Apartment, studio, or floor"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="inputState">Country</label>
-                  <select id="inputState" className="form-control">
-                    <option defaultValue>Choose...</option>
-                    <option>India</option>
-                    <option>USA</option>
-                    <option>UK</option>
-                  </select>
-                </div>
+                <Input
+                  label="Address"
+                  name="address"
+                  placeholder="1234 Main St..."
+                  onChange={this.handleInputChange}
+                  value={this.state.address}
+                />
+
+                <SelectList
+                  label="Country"
+                  name="country"
+                  options={options}
+                  onChange={this.handleInputChange}
+                  value={this.state.country}
+                />
+
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="state">State</label>
-                    <input type="text" name="state" className="form-control" />
-                  </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="city">City</label>
-                    <input type="text" name="city" className="form-control" />
-                  </div>
-                  <div className="form-group col-md-2">
-                    <label htmlFor="zip">Zip</label>
-                    <input type="text" name="zip" className="form-control" />
-                  </div>
+                  <Input
+                    classes="col-md-6"
+                    label="State"
+                    name="state"
+                    placeholder="state..."
+                    onChange={this.handleInputChange}
+                    value={this.state.state}
+                  />
+                  <Input
+                    classes="col-md-4"
+                    label="City"
+                    name="city"
+                    placeholder="city..."
+                    onChange={this.handleInputChange}
+                    value={this.state.city}
+                  />
+                  <Input
+                    classes="col-md-2"
+                    label="Zip"
+                    name="zip"
+                    placeholder="zip..."
+                    onChange={this.handleInputChange}
+                    value={this.state.zip}
+                    validate={this.numbersOnly}
+                  />
                 </div>
               </div>
 
@@ -128,68 +216,67 @@ class AddPropertyPage extends Component {
               <div className="details">
                 <strong className="text-muted">Details</strong>
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="propertyType">Property Type</label>
-                    <select name="propertyType" className="form-control">
-                      <option>Apartment</option>
-                      <option>Flat</option>
-                      <option>House</option>
-                      <option>Cottage</option>
-                    </select>
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label htmlFor="status">Status</label>
-                    <select name="status" className="form-control">
-                      <option>Rent</option>
-                      <option>Sale</option>
-                    </select>
-                  </div>
+                  <SelectList
+                    classes="col-md-6"
+                    options={propertyType}
+                    label="Property Type"
+                    name="propertyType"
+                    onChange={this.handleInputChange}
+                    value={this.state.propertyType}
+                  />
+
+                  <SelectList
+                    classes="col-md-6"
+                    options={propertyStatus}
+                    label="Status"
+                    name="status"
+                    onChange={this.handleInputChange}
+                    value={this.state.status}
+                  />
                 </div>
 
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="beds">Beds</label>
-                    <input
-                      type="text"
-                      name="beds"
-                      placeholder="beds..."
-                      className="form-control"
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label htmlFor="baths">Baths</label>
-                    <input
-                      type="text"
-                      name="baths"
-                      placeholder="baths..."
-                      className="form-control"
-                    />
-                  </div>
+                  <Input
+                    classes="col-md-6"
+                    label="Beds"
+                    name="beds"
+                    placeholder="beds..."
+                    onChange={this.handleInputChange}
+                    value={this.state.beds}
+                    validate={this.numbersOnly}
+                  />
+
+                  <Input
+                    classes="col-md-6"
+                    label="Baths"
+                    name="baths"
+                    placeholder="baths..."
+                    onChange={this.handleInputChange}
+                    value={this.state.baths}
+                    validate={this.numbersOnly}
+                  />
                 </div>
 
                 <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="area  ">
-                      Area [m
-                      <sup>2</sup>
-                      ]:
-                    </label>
-                    <input
-                      type="text"
-                      name="area "
-                      placeholder="area  ..."
-                      className="form-control"
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <label htmlFor="garage">Garages :</label>
-                    <input
-                      type="text"
-                      name="garage"
-                      placeholder="garages..."
-                      className="form-control"
-                    />
-                  </div>
+                  <Input
+                    classes="col-md-6"
+                    label="Area m2"
+                    name="area"
+                    placeholder="area..."
+                    onChange={this.handleInputChange}
+                    value={this.state.area}
+                    validate={this.numbersOnly}
+                  />
+
+                  <Input
+                    classes="col-md-6"
+                    label="Garages"
+                    name="garages"
+                    placeholder="garage..."
+                    onChange={this.handleInputChange}
+                    value={this.state.garages}
+                    validate={this.numbersOnly}
+                  />
                 </div>
               </div>
 
@@ -200,171 +287,82 @@ class AddPropertyPage extends Component {
                 <p className="mb-3" />
 
                 <div className="form-row">
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="airConditioning"
-                      id="airConditioning"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="airConditioning"
-                      id="airConditioning"
-                    >
-                      Air conditioning
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="ac"
+                    label="Air conditioning"
+                    onChange={this.handleInputChange}
+                    checked={this.state.ac}
+                  />
 
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="bedding"
-                      name="bedding"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="bedding"
-                      id="bedding"
-                    >
-                      Bedding
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="gym"
+                    label="Gym"
+                    onChange={this.handleInputChange}
+                    checked={this.state.gym}
+                  />
+                </div>
+                <div className="form-row">
+                  <CheckBox
+                    name="bar"
+                    label="Bar"
+                    onChange={this.handleInputChange}
+                    checked={this.state.bar}
+                  />
+
+                  <CheckBox
+                    name="internet"
+                    label="Internet"
+                    onChange={this.handleInputChange}
+                    checked={this.state.internet}
+                  />
                 </div>
 
                 <div className="form-row">
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="heating"
-                      id="heating"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="heating"
-                      id="heating"
-                    >
-                      Heating
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="microwave"
+                    label="Microwave"
+                    onChange={this.handleInputChange}
+                    checked={this.state.microwave}
+                  />
 
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="customCheck2"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="customCheck2"
-                    >
-                      Internet{" "}
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="smoking"
+                    label="Smoking allowed"
+                    onChange={this.handleInputChange}
+                    checked={this.state.smoking}
+                  />
                 </div>
 
                 <div className="form-row">
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="microwave"
-                      id="microwave"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="microwave"
-                      id="microwave"
-                    >
-                      Microwave
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="fireplace"
+                    label="Fireplace or fire pit"
+                    onChange={this.handleInputChange}
+                    checked={this.state.fireplace}
+                  />
 
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="smokingAllowed"
-                      id="smokingAllowed"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="smokingAllowed"
-                      id="smokingAllowed"
-                    >
-                      Smoking allowed
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="toaster"
+                    label="Toaster"
+                    onChange={this.handleInputChange}
+                    checked={this.state.toaster}
+                  />
                 </div>
 
                 <div className="form-row">
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="useOfPool"
-                      id="useOfPool"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="useOfPool"
-                      id="useOfPool"
-                    >
-                      Use of pool
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="tennis"
+                    label="Tennis Courts"
+                    onChange={this.handleInputChange}
+                    checked={this.state.tennis}
+                  />
 
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="toaster"
-                      id="toaster"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="toaster"
-                      id="toaster"
-                    >
-                      Toaster
-                    </label>
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="HiFi"
-                      id="HiFi"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="HiFi"
-                      id="HiFi"
-                    >
-                      Hi-Fi
-                    </label>
-                  </div>
-
-                  <div className="custom-control custom-checkbox  col-md-4 offset-1">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      name="cableTV"
-                      id="cableTV"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="cableTV"
-                      id="cableTV"
-                    >
-                      Cable TV
-                    </label>
-                  </div>
+                  <CheckBox
+                    name="tv"
+                    label="Cable TV"
+                    onChange={this.handleInputChange}
+                    checked={this.state.tv}
+                  />
                 </div>
               </div>
 
@@ -379,4 +377,7 @@ class AddPropertyPage extends Component {
   }
 }
 
-export default AddPropertyPage;
+export default connect(
+  null,
+  actions
+)(AddPropertyPage);

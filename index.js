@@ -6,6 +6,7 @@ const passport = require("passport");
 
 const user = require("./routes/user");
 const profile = require("./routes/profile");
+const property = require("./routes/property");
 
 const app = express();
 
@@ -36,6 +37,7 @@ require("./config/passport")(passport);
 //API Route
 app.use("/api/user", user);
 app.use("/api/profile", profile);
+app.use("/api/property", property);
 
 // Hanlding unhandled promises
 process.on("unhandledRejection", ex => {

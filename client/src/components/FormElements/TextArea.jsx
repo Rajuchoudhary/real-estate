@@ -1,8 +1,8 @@
 import React from "react";
 
-const TextArea = ({ name, label, placeholder, onChange, value }) => {
+const TextArea = ({ classes, name, label, placeholder, onChange, value }) => {
   return (
-    <div className="form-group">
+    <div className={`form-group ${classes}`}>
       <label htmlFor={name}>{label}</label>
       <textarea
         className="form-control"
