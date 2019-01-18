@@ -41,6 +41,10 @@ const profileSchema = new Schema({
     linkedin: {
       type: String
     }
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 const Profile = mongoose.model("Profile", profileSchema);

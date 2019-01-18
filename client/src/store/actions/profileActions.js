@@ -1,15 +1,13 @@
-import { SET_PROFILE, GET_ERRORS } from "../types";
+import { SET_PROFILE, SET_ERRORS } from "../types";
 import axios from "axios";
 
 export const updateProfile = profileDetails => async dispatch => {
   try {
-    console.log(profileDetails);
-
     const profile = await axios.post("/api/profile/update", profileDetails);
     dispatch(setProfile(profile.data));
   } catch (err) {
     dispatch({
-      type: GET_ERRORS,
+      type: SET_ERRORS,
       payload: err.response.data
     });
   }
@@ -21,7 +19,7 @@ export const getProfile = id => async dispatch => {
     dispatch(setProfile(profile.data));
   } catch (err) {
     dispatch({
-      type: GET_ERRORS,
+      type: SET_ERRORS,
       payload: err.response.data
     });
   }

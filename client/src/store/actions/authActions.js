@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_CURRENT_USER } from "../types";
+import { SET_ERRORS, SET_CURRENT_USER, CLEAR_CURRENT_USER } from "../types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../utils/setAuthToken";
@@ -12,7 +12,7 @@ export const registerUser = (userData, history) => async dispatch => {
     }
   } catch (err) {
     dispatch({
-      type: GET_ERRORS,
+      type: SET_ERRORS,
       payload: err.response.data
     });
   }
@@ -32,7 +32,7 @@ export const loginUser = userData => async dispatch => {
   } catch (error) {
     console.log(error.response.data);
     dispatch({
-      type: GET_ERRORS,
+      type: SET_ERRORS,
       payload: error.response.data
     });
   }

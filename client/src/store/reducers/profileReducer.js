@@ -1,9 +1,9 @@
 import { SET_PROFILE } from "../types";
 
 const initialState = {
-  profile: null,
-  profiles: null,
-  loading: true
+  profile: {},
+  profiles: [],
+  loading: false
 };
 
 export default function(state = initialState, action) {

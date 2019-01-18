@@ -30,7 +30,9 @@ class AddPropertyPage extends Component {
     fireplace: "",
     toaster: "",
     tennis: "",
-    tv: ""
+    tv: "",
+    loading: false,
+    errors: {}
   };
 
   handleInputChange = ({ currentTarget }) => {
@@ -47,7 +49,30 @@ class AddPropertyPage extends Component {
     e.preventDefault();
 
     const propertyDetails = {
-      ...this.state
+      title: this.state.title,
+      price: this.state.price,
+      description: this.state.description,
+      address: this.state.address,
+      country: this.state.country,
+      state: this.state.state,
+      city: this.state.city,
+      zip: this.state.zip,
+      propertyType: this.state.propertyType,
+      status: this.state.status,
+      beds: this.state.beds,
+      baths: this.state.baths,
+      area: this.state.area,
+      garages: this.state.garages,
+      ac: this.state.ac,
+      gym: this.state.gym,
+      bar: this.state.bar,
+      internet: this.state.internet,
+      microwave: this.state.microwave,
+      smoking: this.state.smoking,
+      fireplace: this.state.fireplace,
+      toaster: this.state.toaster,
+      tennis: this.state.tennis,
+      tv: this.state.tv
     };
 
     console.log(propertyDetails);
@@ -67,6 +92,17 @@ class AddPropertyPage extends Component {
     if (price) {
     }
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+
+    if (nextProps.property.property) {
+    }
+  }
 
   render() {
     const options = [
@@ -377,7 +413,14 @@ class AddPropertyPage extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    errors: state.errors,
+    property: state.property
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(AddPropertyPage);

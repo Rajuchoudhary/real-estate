@@ -15,7 +15,7 @@ module.exports = function validatePropertyInput(data) {
 
   //Title
   if (!Validator.isLength(data.title, { min: 5, max: 30 })) {
-    errors.title = "title must be between 2 and 30 characters";
+    errors.title = "title must be between 5 and 30 characters";
   }
 
   if (Validator.isEmpty(data.title)) {
@@ -36,8 +36,8 @@ module.exports = function validatePropertyInput(data) {
   }
 
   // Description
-  if (!Validator.isLength(data.description, { min: 15, max: 100 })) {
-    errors.description = "description must be between 15 and 100 characters";
+  if (!Validator.isLength(data.description, { min: 15, max: 300 })) {
+    errors.description = "description must be between 15 and 300 characters";
   }
 
   if (Validator.isEmpty(data.description)) {
@@ -45,8 +45,8 @@ module.exports = function validatePropertyInput(data) {
   }
 
   //Address
-  if (!Validator.isLength(data.address, { min: 5, max: 30 })) {
-    errors.address = "address must be between 5 and 30 characters";
+  if (!Validator.isLength(data.address, { min: 5, max: 50 })) {
+    errors.address = "address must be between 5 and 50 characters";
   }
 
   if (Validator.isEmpty(data.address)) {
