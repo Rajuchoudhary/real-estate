@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -68,6 +69,25 @@ router.post(
 router.get("/all", async (req, res) => {
   const propertiesList = await Property.find();
   res.status(200).send(propertiesList);
+});
+
+//get property with id
+//@Route /api/property/:id
+
+router.get("/:id", async (req, res) => {
+  console.log(req.params.id);
+
+  if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+    const propertyDetail = await Property.findOne({
+      _id: mongoose.Types.ObjectId(req.params.id)
+    }).populate("user", ["-password"]);
+
+    if (propertyDetail) {
+      return res.status(200).send(propertyDetail);
+    }
+  } else {
+    res.status(400).send("Not found");
+  }
 });
 
 module.exports = router;

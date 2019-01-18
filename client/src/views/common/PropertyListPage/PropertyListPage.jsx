@@ -33,8 +33,9 @@ class PropertyListPage extends React.Component {
           renderComponent = properties.map(property => {
             return (
               <CardTwo
-                title={property.title}
                 key={property._id}
+                title={property.title}
+                propertyId={property._id}
                 img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
                 status={property.status}
                 address={property.address}

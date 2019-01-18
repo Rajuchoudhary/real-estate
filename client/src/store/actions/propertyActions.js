@@ -35,3 +35,28 @@ export const getAllProperties = () => async dispatch => {
     });
   } catch (err) {}
 };
+
+export const getProperty = (id, history) => async dispatch => {
+  console.log(id);
+
+  try {
+    let property = await axios.get(`/api/property/${id}`);
+    console.log(property);
+    !property && history.push("/not-found");
+
+    console.log(property.data.user._id);
+
+    const profile = await axios.get(`/api/profile/${property.data.user._id}`);
+
+    property.data.userDetails = profile.data;
+
+    property &&
+      dispatch({
+        type: SET_PROPERTY,
+        payload: property.data
+      });
+  } catch (err) {
+    history.push("/not-found");
+    console.log(err.response.data);
+  }
+};
