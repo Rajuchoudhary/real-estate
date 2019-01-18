@@ -1,4 +1,4 @@
-import { SET_PROPERTY } from "../types";
+import { SET_PROPERTY, SET_ALL_PROPERTIES } from "../types";
 
 const initialState = {
   property: {},
@@ -14,7 +14,12 @@ export default function(state = initialState, action) {
         property: action.payload,
         loading: false
       };
-
+    case SET_ALL_PROPERTIES:
+      return {
+        ...state,
+        properties: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

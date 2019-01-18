@@ -4,5 +4,18 @@ import Input from "./FormElements/Input";
 import TextArea from "./FormElements/TextArea";
 import SelectList from "./FormElements/SelectList";
 import CheckBox from "./FormElements/CheckBox";
+import CardOne from "./CardOne/CardOne";
+import CardTwo from "./CardTwo/CardTwo";
+import GoogleMap from "./GoogleMap/GoogleMap";
 
-export { Footer, Header, Input, TextArea, SelectList, CheckBox };
+export {
+  Footer,
+  Header,
+  Input,
+  TextArea,
+  SelectList,
+  CheckBox,
+  CardOne,
+  CardTwo,
+  GoogleMap
+};

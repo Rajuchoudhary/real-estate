@@ -8,6 +8,7 @@ const Property = require("../models/Property");
 //Load property validator
 const validatePropertyInput = require("../validation/property");
 
+//add new property
 //@Route /api/property/add
 router.post(
   "/add",
@@ -60,5 +61,13 @@ router.post(
     }
   }
 );
+
+//get all properties
+//@Route /api/property
+
+router.get("/all", async (req, res) => {
+  const propertiesList = await Property.find();
+  res.status(200).send(propertiesList);
+});
 
 module.exports = router;

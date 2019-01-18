@@ -1,4 +1,9 @@
-import { SET_PROPERTY, SET_ERRORS, CLEAR_ERRORS } from "../types";
+import {
+  SET_PROPERTY,
+  SET_ERRORS,
+  CLEAR_ERRORS,
+  SET_ALL_PROPERTIES
+} from "../types";
 import axios from "axios";
 
 export const addProperty = propertyDetails => async dispatch => {
@@ -19,4 +24,14 @@ export const addProperty = propertyDetails => async dispatch => {
       payload: err.response.data
     });
   }
+};
+
+export const getAllProperties = () => async dispatch => {
+  try {
+    const propertiesList = await axios.get("/api/property/all");
+    dispatch({
+      type: SET_ALL_PROPERTIES,
+      payload: propertiesList.data
+    });
+  } catch (err) {}
 };
