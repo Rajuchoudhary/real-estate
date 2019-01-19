@@ -6,8 +6,9 @@ import { Input, TextArea, SelectList, CheckBox } from "../../../components/";
 import validatePropertyInput from "../../../validation/validatePropertyInput";
 import { AgentMenu } from "..";
 
-class AddPropertyPage extends Component {
+class EditPropertyPage extends Component {
   state = {
+    id: "",
     title: "",
     price: "",
     description: "",
@@ -36,6 +37,10 @@ class AddPropertyPage extends Component {
     errors: {}
   };
 
+  componentWillMount() {
+    this.props.getProperty(this.props.match.params.id, this.props.history);
+  }
+
   handleInputChange = ({ currentTarget }) => {
     const value =
       currentTarget.type === "checkbox"
@@ -50,6 +55,7 @@ class AddPropertyPage extends Component {
     e.preventDefault();
 
     const propertyDetails = {
+      id: this.state.id,
       title: this.state.title,
       price: this.state.price,
       description: this.state.description,
@@ -76,10 +82,8 @@ class AddPropertyPage extends Component {
       tv: this.state.tv
     };
 
-    console.log(propertyDetails);
-    console.log(validatePropertyInput(propertyDetails));
     if (validatePropertyInput(propertyDetails)) {
-      this.props.addProperty(propertyDetails);
+      this.props.updateProperty(propertyDetails);
     }
   };
 
@@ -102,6 +106,34 @@ class AddPropertyPage extends Component {
     }
 
     if (nextProps.property.property) {
+      const property = nextProps.property.property;
+      this.setState({
+        id: property._id,
+        title: property.title,
+        price: property.price + "",
+        description: property.description,
+        address: property.address,
+        country: property.country,
+        state: property.state,
+        city: property.city,
+        zip: property.zip + "",
+        propertyType: property.propertyType,
+        status: property.status,
+        beds: property.beds + "",
+        baths: property.baths + "",
+        area: property.area + "",
+        garages: property.garages + "",
+        ac: property.features.ac,
+        gym: property.features.gym,
+        bar: property.features.bar,
+        internet: property.features.internet,
+        microwave: property.features.microwave,
+        smoking: property.features.smoking,
+        fireplace: property.features.fireplace,
+        toaster: property.features.toaster,
+        tennis: property.features.tennis,
+        tv: property.features.tv
+      });
     }
   }
 
@@ -141,7 +173,7 @@ class AddPropertyPage extends Component {
 
             {/* <!-- Add New Property --> */}
             <div className="title text-center display-4 mb-4">
-              Add New Property
+              Edit Property
             </div>
             <form onSubmit={this.onFormSubmit}>
               <div className="basic-info">
@@ -402,4 +434,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   actions
-)(AddPropertyPage);
+)(EditPropertyPage);

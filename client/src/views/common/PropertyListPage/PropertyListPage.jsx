@@ -8,25 +8,22 @@ class PropertyListPage extends React.Component {
   state = {
     currentPage: 1,
     pageSize: 5,
-    totalCount: "",
-    selectedFilter: ""
+    selectedFilter: "all"
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.props.getAllProperties(
       this.state.currentPage,
       this.state.pageSize,
       this.state.selectedFilter
     );
-
-    let totalCount;
-
-    totalCount = await axios.get("/api/property/");
-    console.log("all", totalCount.data.totalCount);
-    if (totalCount)
-      this.setState({
-        totalCount: totalCount.data.totalCount + 0
-      });
+    // let totalCount;
+    // totalCount = await axios.get("/api/property/");
+    // // console.log("all", totalCount.data.totalCount);
+    // if (totalCount)
+    //   this.setState({
+    //     totalCount: totalCount.data.totalCount + 0
+    //   });
   }
 
   onInputChange = e => {
@@ -42,12 +39,59 @@ class PropertyListPage extends React.Component {
       this.state.selectedFilter
     );
   };
-  getPageDate = async () => {};
-  render() {
-    let { totalCount, pageSize, currentPage } = this.state;
-    const { properties, loading } = this.props.property;
+  getPageDate = () => {
+    // const { selectedFilter, currentPage, pageSize } = this.state;
+    // let newCount;
+    // if (selectedFilter === "all" || selectedFilter === "") {
+    //   axios
+    //     .get("/api/property/", {
+    //       params: { status: "" }
+    //     })
+    //     .then(Count => {
+    //       newCount = Count.data.totalCount;
+    //       console.log("all", newCount);
+    //       return newCount;
+    //     })
+    //     .catch(err => console.log(err));
+    // }
+    // if (selectedFilter === "rent" || selectedFilter === "sale") {
+    //   axios
+    //     .get("/api/property/", {
+    //       params: { filter: selectedFilter }
+    //     })
+    //     .then(Count => {
+    //       console.log("filtered", Count.data.totalCount);
+    //       newCount = Count.data.totalCount;
+    //     })
+    //     .catch(err => console.log(err));
+    // }
+    // console.log("getData", newCount);
+    // return { totalCount: newCount };
+  };
 
-    console.log(this.state);
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log(nextState.selectedFilter);
+
+  //   if (!nextProps) {
+  //     this.props.getAllProperties(
+  //       this.state.currentPage,
+  //       this.state.pageSize,
+  //       this.state.selectedFilter
+  //     );
+  //     // let { selectedFilter } = this.state;
+  //     // if (selectedFilter === "rent" || selectedFilter === "sale") {
+  //     //   this.props.getAllProperties(
+  //     //     this.state.currentPage,
+  //     //     this.state.pageSize,
+  //     //     this.state.selectedFilter
+  //     //   );
+  //     // }
+  //   }
+  // }
+  render() {
+    let { pageSize, currentPage, selectedFilter } = this.state;
+
+    const { totalCount, properties, loading } = this.props.property;
 
     let renderComponent;
 
@@ -55,28 +99,26 @@ class PropertyListPage extends React.Component {
       renderComponent = <p>Loading</p>;
     } else {
       if (properties.length > 0) {
-        {
-          renderComponent = properties.map(property => {
-            return (
-              <CardTwo
-                key={property._id}
-                title={property.title}
-                propertyId={property._id}
-                agentId={property.user._id}
-                agentName={property.user.name}
-                img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
-                status={property.status}
-                address={property.address}
-                price={property.price}
-                text={property.description}
-                area={property.area}
-                beds={property.beds}
-                baths={property.baths}
-                garages={property.garages}
-              />
-            );
-          });
-        }
+        renderComponent = properties.map(property => {
+          return (
+            <CardTwo
+              key={property._id}
+              title={property.title}
+              propertyId={property._id}
+              agentId={property.user._id}
+              agentName={property.user.name}
+              img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
+              status={property.status}
+              address={property.address}
+              price={property.price}
+              text={property.description}
+              area={property.area}
+              beds={property.beds}
+              baths={property.baths}
+              garages={property.garages}
+            />
+          );
+        });
       } else {
         renderComponent = <p>no properties found...</p>;
       }
@@ -107,6 +149,7 @@ class PropertyListPage extends React.Component {
           </div>
         </div>
         <div className="cards my-5">{renderComponent}</div>
+
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

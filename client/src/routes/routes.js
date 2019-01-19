@@ -8,7 +8,12 @@ import {
   AgentProfilePage
 } from "../views/common";
 import { RegistrationPage, LoginPage } from "../views/visitor";
-import { AddPropertyPage, Dashboard, PropertyPage } from "../views/agent";
+import {
+  AddPropertyPage,
+  Dashboard,
+  PropertyPage,
+  EditPropertyPage
+} from "../views/agent";
 
 class Routes extends React.Component {
   render() {
@@ -22,6 +27,8 @@ class Routes extends React.Component {
         <Route path="/property-detail/:id" component={PropertyDetailPage} />
         <Route path="/agent-profile/:id" component={AgentProfilePage} />
         <Route path="/agent/add-property" component={AddPropertyPage} />
+        <Route path="/agent/edit-property/:id" component={EditPropertyPage} />
+
         <Route path="/registration" component={RegistrationPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/not-found" component={NotFoundPage} />

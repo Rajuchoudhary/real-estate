@@ -8,6 +8,7 @@ import CardOne from "./CardOne/CardOne";
 import CardTwo from "./CardTwo/CardTwo";
 import GoogleMap from "./GoogleMap/GoogleMap";
 import Pagination from "./Pagination/Pagination";
+import Popup from "./Popup/Popup";
 
 export {
   Footer,
@@ -19,5 +20,6 @@ export {
   CardOne,
   CardTwo,
   GoogleMap,
-  Pagination
+  Pagination,
+  Popup
 };

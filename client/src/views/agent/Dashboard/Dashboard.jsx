@@ -4,6 +4,7 @@ import * as actions from "../../../store/actions";
 import { NavLink, Link } from "react-router-dom";
 import { TextArea, Input } from "../../../components";
 import SelectList from "../../../components/FormElements/SelectList";
+import { AgentMenu } from "..";
 
 class Dashboard extends React.Component {
   state = {
@@ -226,29 +227,7 @@ class Dashboard extends React.Component {
       <div className="container-fluid">
         <div className="row">
           {/* left section */}
-          <div className="col-lg-2 col-md-2 col-sm-12 border-right pt-3">
-            <div className="list-group">
-              <NavLink
-                to="/agent/dashboard"
-                className="list-group-item list-group-item-action"
-              >
-                Profile
-              </NavLink>
-              <Link
-                to="/agent/properties"
-                className="list-group-item list-group-item-action"
-              >
-                Properties
-              </Link>
-              <Link
-                to="/agent/add-property"
-                className="list-group-item list-group-item-action"
-              >
-                Add New
-              </Link>
-            </div>
-          </div>
-
+          <AgentMenu />
           {/* right section */}
           {renderContent}
         </div>

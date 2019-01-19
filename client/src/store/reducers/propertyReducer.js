@@ -1,8 +1,9 @@
-import { SET_PROPERTY, SET_ALL_PROPERTIES } from "../types";
+import { SET_PROPERTY, SET_ALL_PROPERTIES, SET_TOTAL_COUNT } from "../types";
 
 const initialState = {
   property: {},
   properties: [],
+  totalCount: "",
   loading: false
 };
 
@@ -19,6 +20,11 @@ export default function(state = initialState, action) {
         ...state,
         properties: action.payload,
         loading: false
+      };
+    case SET_TOTAL_COUNT:
+      return {
+        ...state,
+        totalCount: action.payload.totalCount
       };
     default:
       return state;
