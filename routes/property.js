@@ -67,8 +67,24 @@ router.post(
 //@Route /api/property
 
 router.get("/all", async (req, res) => {
-  const propertiesList = await Property.find();
-  res.status(200).send(propertiesList);
+  const currentPage = req.query.currentPage;
+  const pageSize = req.query.pageSize;
+  const filter = req.query.selectedFilter;
+  // console.log("page size", currentPage, pageSize);
+
+  if (filter) {
+    const propertiesList = await Property.find({ status: filter })
+      .skip((currentPage - 1) * pageSize)
+      .limit(pageSize * 1)
+      .populate("user", ["-password"]);
+    res.status(200).send(propertiesList);
+  } else {
+    const propertiesList = await Property.find()
+      .skip((currentPage - 1) * pageSize)
+      .limit(pageSize * 1)
+      .populate("user", ["-password"]);
+    res.status(200).send(propertiesList);
+  }
 });
 
 //get property with id
@@ -79,7 +95,7 @@ router.get("/:id", async (req, res) => {
 
   if (mongoose.Types.ObjectId.isValid(req.params.id)) {
     const propertyDetail = await Property.findOne({
-      _id: mongoose.Types.ObjectId(req.params.id)
+      _id: req.params.id
     }).populate("user", ["-password"]);
 
     if (propertyDetail) {
@@ -90,4 +106,19 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//get total property count
+//@Route /api/property/
+router.get("/", async (req, res) => {
+  console.log("count it");
+
+  if (req.query.filter) {
+    const totalCount = await Property.find({
+      status: req.query.filter
+    }).countDocuments();
+    res.status(200).send({ totalCount: totalCount });
+  } else {
+    const totalCount = await Property.find().countDocuments();
+    res.status(200).send({ totalCount: totalCount });
+  }
+});
 module.exports = router;

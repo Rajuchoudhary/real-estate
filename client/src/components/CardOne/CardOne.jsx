@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./CardOneStyle.css";
 
 class CardOne extends React.Component {
   render() {

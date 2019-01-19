@@ -18,7 +18,8 @@ class PropertyDetailUI extends React.Component {
       features
     } = this.props.property;
 
-    const { name, about, mobile, skype, _id } = this.props.agent;
+    const { _id } = this.props.agent.user;
+    const { name, about, mobile, skype } = this.props.agent;
 
     return (
       <React.Fragment>

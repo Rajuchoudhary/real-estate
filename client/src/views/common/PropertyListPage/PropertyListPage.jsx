@@ -1,17 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
-import { CardTwo } from "../../../components";
+import { CardTwo, Pagination } from "../../../components";
+import axios from "axios";
 
 class PropertyListPage extends React.Component {
   state = {
     currentPage: 1,
     pageSize: 5,
+    totalCount: "",
     selectedFilter: ""
   };
 
-  componentDidMount() {
-    this.props.getAllProperties();
+  async componentDidMount() {
+    this.props.getAllProperties(
+      this.state.currentPage,
+      this.state.pageSize,
+      this.state.selectedFilter
+    );
+
+    let totalCount;
+
+    totalCount = await axios.get("/api/property/");
+    console.log("all", totalCount.data.totalCount);
+    if (totalCount)
+      this.setState({
+        totalCount: totalCount.data.totalCount + 0
+      });
   }
 
   onInputChange = e => {
@@ -19,9 +34,20 @@ class PropertyListPage extends React.Component {
       [e.currentTarget.name]: e.currentTarget.value
     });
   };
-
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+    this.props.getAllProperties(
+      page,
+      this.state.pageSize,
+      this.state.selectedFilter
+    );
+  };
+  getPageDate = async () => {};
   render() {
+    let { totalCount, pageSize, currentPage } = this.state;
     const { properties, loading } = this.props.property;
+
+    console.log(this.state);
 
     let renderComponent;
 
@@ -36,6 +62,8 @@ class PropertyListPage extends React.Component {
                 key={property._id}
                 title={property.title}
                 propertyId={property._id}
+                agentId={property.user._id}
+                agentName={property.user.name}
                 img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
                 status={property.status}
                 address={property.address}
@@ -79,6 +107,12 @@ class PropertyListPage extends React.Component {
           </div>
         </div>
         <div className="cards my-5">{renderComponent}</div>
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }

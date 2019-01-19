@@ -74,11 +74,31 @@ router.post(
 
 //@Route api/profile/:id
 router.get("/:id", async (req, res) => {
-  console.log("id = ", req.params.id);
+  console.log("user id", req.params.id);
 
-  const profile = await Profile.findOne({
-    user: mongoose.Types.ObjectId(req.params.id)
-  }).populate("user", ["-password"]);
-  res.status(200).send(profile);
+  if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+    const profile = await Profile.findOne({
+      user: mongoose.Types.ObjectId(req.params.id)
+    }).populate("user", ["-password"]);
+    res.status(200).send(profile);
+    console.log(profile);
+  } else {
+    res.status(400).send("Not found");
+  }
 });
+
+// @Route api/profile/user/current
+router.get(
+  "/user/current",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    console.log("current id = ", req.user.id);
+
+    const profile = await Profile.findOne({
+      user: mongoose.Types.ObjectId(req.user.id)
+    }).populate("user", ["-password"]);
+    res.status(200).send(profile);
+    // console.log(profile);
+  }
+);
 module.exports = router;

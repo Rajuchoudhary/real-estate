@@ -26,9 +26,15 @@ export const addProperty = propertyDetails => async dispatch => {
   }
 };
 
-export const getAllProperties = () => async dispatch => {
+export const getAllProperties = (
+  currentPage,
+  pageSize,
+  selectedFilter
+) => async dispatch => {
   try {
-    const propertiesList = await axios.get("/api/property/all");
+    const propertiesList = await axios.get("/api/property/all", {
+      params: { currentPage, pageSize, selectedFilter }
+    });
     dispatch({
       type: SET_ALL_PROPERTIES,
       payload: propertiesList.data

@@ -21,7 +21,7 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getProfile(this.props.auth.user.id);
+    this.props.getCurrentProfile();
 
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");

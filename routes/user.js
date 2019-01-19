@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const express = require("express");
@@ -11,6 +12,8 @@ const validateLoginInput = require("../validation/login");
 
 //Load User Model
 const User = require("../models/User");
+//Load Property Model
+const Property = require("../models/Property");
 
 router.get("/extra", (req, res) => {
   res.send("hi there");
@@ -79,6 +82,23 @@ router.post("/login", async (req, res) => {
     } else {
       res.status(400).send("password incorrect!");
     }
+  }
+});
+
+//get  user properties
+//@Route /api/user/property/:id
+router.get("/property/:id", async (req, res) => {
+  if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+    const propertyList = await Property.find({
+      user: mongoose.Types.ObjectId(req.params.id)
+    });
+    if (propertyList) {
+      res.status(200).send(propertyList);
+    } else {
+      res.status(400).send("not found");
+    }
+  } else {
+    res.status(400).send({ err: "id not valid" });
   }
 });
 

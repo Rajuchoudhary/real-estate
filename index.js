@@ -35,9 +35,9 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 //API Route
-app.use("/api/user", user);
-app.use("/api/profile", profile);
-app.use("/api/property", property);
+app.use("/api/user/", user);
+app.use("/api/profile/", profile);
+app.use("/api/property/", property);
 
 // Hanlding unhandled promises
 process.on("unhandledRejection", ex => {

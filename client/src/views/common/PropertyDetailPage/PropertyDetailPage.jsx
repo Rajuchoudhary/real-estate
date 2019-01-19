@@ -13,8 +13,6 @@ class PropertyDetailPage extends React.Component {
   render() {
     const { property, loading } = this.props.property;
 
-    console.log(property);
-
     let renderComponent;
 
     if (property === null || loading || Object.keys(property).length === 0) {
@@ -22,6 +20,8 @@ class PropertyDetailPage extends React.Component {
     } else {
       const user = property.userDetails;
       console.log(property);
+
+      console.log(user);
 
       renderComponent = <PropertyDetailUI property={property} agent={user} />;
     }

@@ -7,6 +7,7 @@ import CheckBox from "./FormElements/CheckBox";
 import CardOne from "./CardOne/CardOne";
 import CardTwo from "./CardTwo/CardTwo";
 import GoogleMap from "./GoogleMap/GoogleMap";
+import Pagination from "./Pagination/Pagination";
 
 export {
   Footer,
@@ -17,5 +18,6 @@ export {
   CheckBox,
   CardOne,
   CardTwo,
-  GoogleMap
+  GoogleMap,
+  Pagination
 };
