@@ -132,13 +132,6 @@ class AddPropertyPage extends Component {
           <AgentMenu />
           {/* <!-- right section --> */}
           <div className="m-auto col-lg-8 col-md-8 col-sm-12  p-2">
-            <Link
-              to="/agent/properties"
-              className="btn btn-primary float-right"
-            >
-              <i className="fa fa-building" /> Total Properties 52
-            </Link>
-
             {/* <!-- Add New Property --> */}
             <div className="title text-center display-4 mb-4">
               Add New Property

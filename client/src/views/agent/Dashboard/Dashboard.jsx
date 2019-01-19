@@ -8,6 +8,7 @@ import { AgentMenu } from "..";
 
 class Dashboard extends React.Component {
   state = {
+    propertyCount: "",
     name: "",
     about: "",
     email: "",
@@ -33,6 +34,7 @@ class Dashboard extends React.Component {
     if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
       this.setState({
+        propertyCount: profile.propertyCount,
         name: profile.user.name,
         country: profile.country,
         address: profile.address,
@@ -96,7 +98,8 @@ class Dashboard extends React.Component {
               to="/agent/properties"
               className="btn btn-primary float-right"
             >
-              <i className="fa fa-building" /> Total Properties 52
+              <i className="fa fa-building" /> Total Properties{" "}
+              {this.state.propertyCount}
             </Link>
             <div className="display-4 my-5 text-center">Agent Profile</div>
 

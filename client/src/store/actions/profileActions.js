@@ -36,7 +36,14 @@ export const getProfile = (id, history) => async dispatch => {
 export const getCurrentProfile = () => async dispatch => {
   try {
     const profile = await axios.get("/api/profile/user/current");
-    dispatch(setProfile(profile.data));
+
+    let Profile2 = profile.data.profile;
+    let newProfile = {
+      ...Profile2,
+      propertyCount: profile.data.propertyCount
+    };
+
+    dispatch(setProfile(newProfile));
   } catch (err) {
     dispatch({
       type: SET_ERRORS,

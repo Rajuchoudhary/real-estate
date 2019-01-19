@@ -6,6 +6,7 @@ const passport = require("passport");
 //load profile model
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const Property = require("../models/Property");
 
 //load validation function
 const validateUpdateProfile = require("../validation/profile");
@@ -97,7 +98,20 @@ router.get(
     const profile = await Profile.findOne({
       user: mongoose.Types.ObjectId(req.user.id)
     }).populate("user", ["-password"]);
-    res.status(200).send(profile);
+    const propertyCount = await Property.find({
+      user: mongoose.Types.ObjectId(req.user.id)
+    }).countDocuments();
+    console.log(propertyCount);
+
+    let Profile2 = profile;
+    let newProfile = {
+      ...Profile2,
+      propertyCount: propertyCount
+    };
+
+    console.log("new", Profile2);
+
+    res.status(200).send({ profile, propertyCount });
     // console.log(profile);
   }
 );
