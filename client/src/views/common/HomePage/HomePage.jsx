@@ -25,9 +25,6 @@ class HomePage extends React.Component {
   }
 
   render() {
-    console.log(this.props.property.properties);
-    console.log(this.state.loading);
-
     let renderComponent;
     const { properties, loading } = this.props.property;
 

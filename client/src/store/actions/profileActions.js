@@ -14,19 +14,14 @@ export const updateProfile = profileDetails => async dispatch => {
 };
 
 export const getProfile = (id, history) => async dispatch => {
-  console.log("agent id", id);
-
   try {
     const profile = await axios.get(`/api/profile/${id}`);
 
     const propertyList = await axios.get(
       `/api/user/property/${profile.data.user._id}`
     );
-    console.log("user id is this ", propertyList.data);
 
     profile.data.properties = propertyList.data;
-
-    console.log(profile.data);
 
     dispatch(setProfile(profile.data));
   } catch (err) {

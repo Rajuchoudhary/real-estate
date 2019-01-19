@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TextArea, Input } from "../../../components";
 import SelectList from "../../../components/FormElements/SelectList";
 import { AgentMenu } from "..";

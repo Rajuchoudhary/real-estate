@@ -1,5 +1,5 @@
 import Dashboard from "./Dashboard/Dashboard";
-import PropertyPage from "./PropertyPage/PropertyPage";
+import AgentPropertyListPage from "./AgentPropertyListPage/AgentPropertyListPage";
 import AddPropertyPage from "./AddPropertyPage/AddPropertyPage";
 import EditPropertyPage from "./EditPropertyPage/EditPropertyPage";
 import AgentMenu from "./AgentMenu";
@@ -7,7 +7,7 @@ import AgentMenu from "./AgentMenu";
 export {
   AddPropertyPage,
   Dashboard,
-  PropertyPage,
+  AgentPropertyListPage,
   EditPropertyPage,
   AgentMenu
 };

@@ -51,7 +51,7 @@ export const deleteProperty = id => async dispatch => {
         id: id
       }
     });
-    // console.log(msg.data);
+    console.log(msg.data);
     dispatch(getAllProperties(1, 5, "all"));
   } catch (err) {
     console.log(err);

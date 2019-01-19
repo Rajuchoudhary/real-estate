@@ -27,9 +27,6 @@ class PropertyDetailPage extends React.Component {
       );
     } else {
       const user = property.userDetails;
-      console.log(property);
-
-      console.log(user);
 
       renderComponent = <PropertyDetailUI property={property} agent={user} />;
     }

@@ -23,6 +23,14 @@ class PropertyListPage extends React.Component {
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     });
+
+    if (e.currentTarget.value === "all") {
+      this.props.getAllProperties(1, 5, "all");
+    } else if (e.currentTarget.value === "rent") {
+      this.props.getAllProperties(1, 5, "rent");
+    } else {
+      this.props.getAllProperties(1, 5, "sale");
+    }
   };
   handlePageChange = page => {
     this.setState({ currentPage: page });
@@ -63,7 +71,7 @@ class PropertyListPage extends React.Component {
   };
 
   render() {
-    let { pageSize, currentPage, selectedFilter } = this.state;
+    let { pageSize, currentPage } = this.state;
 
     const { totalCount, properties, loading } = this.props.property;
 

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Pagination } from "../../../components";
 import PropertyPageUI from "./PropertyPageUI";
 import AgentMenu from "../AgentMenu";
 
-class PropertyPage extends Component {
+class AgentPropertyListPage extends Component {
   state = {
     currentPage: 1,
     pageSize: 5,
@@ -85,4 +84,4 @@ const mapStateToPrope = state => {
 export default connect(
   mapStateToPrope,
   actions
-)(PropertyPage);
+)(AgentPropertyListPage);

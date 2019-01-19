@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 class AgentProfileUI extends React.Component {
   render() {
@@ -12,8 +11,6 @@ class AgentProfileUI extends React.Component {
       skype,
       socialMedia
     } = this.props.profileData;
-
-    console.log(this.props.profileData);
 
     return (
       <div className="row">

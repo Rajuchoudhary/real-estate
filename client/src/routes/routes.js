@@ -14,7 +14,7 @@ import { RegistrationPage, LoginPage } from "../views/visitor";
 import {
   AddPropertyPage,
   Dashboard,
-  PropertyPage,
+  AgentPropertyListPage,
   EditPropertyPage
 } from "../views/agent";
 
@@ -28,7 +28,7 @@ class Routes extends React.Component {
         <Route path="/contact" component={ContactPage} />
         <Route path="/agents-list" component={AgentsListPage} />
         <Route path="/agent/dashboard" component={Dashboard} />
-        <Route path="/agent/properties" component={PropertyPage} />
+        <Route path="/agent/properties" component={AgentPropertyListPage} />
         <Route path="/properties-list" component={PropertyListPage} />
         <Route path="/property-detail/:id" component={PropertyDetailPage} />
         <Route path="/agent-profile/:id" component={AgentProfilePage} />
