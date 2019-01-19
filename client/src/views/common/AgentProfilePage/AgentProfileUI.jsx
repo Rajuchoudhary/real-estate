@@ -6,13 +6,11 @@ class AgentProfileUI extends React.Component {
     const { name, email } = this.props.profileData.user;
     const {
       img,
-
       properties,
       about,
       mobile,
       skype,
-      socialMedia,
-      agencyId
+      socialMedia
     } = this.props.profileData;
 
     console.log(this.props.profileData);

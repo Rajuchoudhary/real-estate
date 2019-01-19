@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import PropertyDetailUI from "./PropertyDetailUI";
+import { Spinner } from "reactstrap";
 
 class PropertyDetailPage extends React.Component {
   componentDidMount() {
@@ -16,7 +17,14 @@ class PropertyDetailPage extends React.Component {
     let renderComponent;
 
     if (property === null || loading || Object.keys(property).length === 0) {
-      renderComponent = <p>Loading...</p>;
+      renderComponent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
+        </div>
+      );
     } else {
       const user = property.userDetails;
       console.log(property);

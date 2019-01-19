@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { GoogleMap, CardOne } from "../../../components";
+import { Spinner } from "reactstrap";
 
 class HomePage extends React.Component {
   state = {
@@ -11,7 +12,7 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getAllProperties();
+    this.props.getAllProperties(1, 3, "all");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,14 +31,26 @@ class HomePage extends React.Component {
     let renderComponent;
     const { properties, loading } = this.props.property;
 
-    if (properties === null || loading) {
-      renderComponent = <p>loading...</p>;
+    if (
+      properties === null ||
+      loading ||
+      Object.keys(properties).length === 0
+    ) {
+      renderComponent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
+        </div>
+      );
     }
-    if (properties) {
+    if (properties.length > 0) {
       renderComponent = properties.slice(0, 3).map(property => {
         return (
           <div key={property._id} className="col-lg-4 col-md-6 col-sm-12 ">
             <CardOne
+              propertyId={property._id}
               img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
               title={property.title}
               price={property.price}

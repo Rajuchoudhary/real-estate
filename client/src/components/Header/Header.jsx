@@ -11,13 +11,18 @@ class Header extends React.Component {
 
   render() {
     const authLinks = (
-      <NavLink
-        onClick={this.onlogoutClick}
-        className="nav-item nav-link"
-        to="/"
-      >
-        Logout
-      </NavLink>
+      <React.Fragment>
+        <NavLink className="bg-warning nav-item nav-link" to="/agent/dashboard">
+          Dashboard
+        </NavLink>
+        <NavLink
+          onClick={this.onlogoutClick}
+          className="nav-item nav-link"
+          to="/"
+        >
+          Logout
+        </NavLink>
+      </React.Fragment>
     );
     const guestLinks = (
       <React.Fragment>
@@ -55,9 +60,6 @@ class Header extends React.Component {
                 </NavLink>
                 <NavLink className="nav-item nav-link" to="/properties-list">
                   Properties List
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/agencies-list">
-                  Agencies List
                 </NavLink>
                 <NavLink className="nav-item nav-link" to="/agents-list">
                   Agents List

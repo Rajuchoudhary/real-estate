@@ -5,7 +5,10 @@ import {
   NotFoundPage,
   PropertyListPage,
   PropertyDetailPage,
-  AgentProfilePage
+  AgentProfilePage,
+  AboutPage,
+  ContactPage,
+  AgentsListPage
 } from "../views/common";
 import { RegistrationPage, LoginPage } from "../views/visitor";
 import {
@@ -21,6 +24,9 @@ class Routes extends React.Component {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/Home" component={HomePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/contact" component={ContactPage} />
+        <Route path="/agents-list" component={AgentsListPage} />
         <Route path="/agent/dashboard" component={Dashboard} />
         <Route path="/agent/properties" component={PropertyPage} />
         <Route path="/properties-list" component={PropertyListPage} />

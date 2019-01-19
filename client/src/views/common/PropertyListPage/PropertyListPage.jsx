@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { CardTwo, Pagination } from "../../../components";
-import axios from "axios";
+import { Spinner } from "reactstrap";
 
 class PropertyListPage extends React.Component {
   state = {
@@ -17,13 +17,6 @@ class PropertyListPage extends React.Component {
       this.state.pageSize,
       this.state.selectedFilter
     );
-    // let totalCount;
-    // totalCount = await axios.get("/api/property/");
-    // // console.log("all", totalCount.data.totalCount);
-    // if (totalCount)
-    //   this.setState({
-    //     totalCount: totalCount.data.totalCount + 0
-    //   });
   }
 
   onInputChange = e => {
@@ -69,25 +62,6 @@ class PropertyListPage extends React.Component {
     // return { totalCount: newCount };
   };
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   console.log(nextState.selectedFilter);
-
-  //   if (!nextProps) {
-  //     this.props.getAllProperties(
-  //       this.state.currentPage,
-  //       this.state.pageSize,
-  //       this.state.selectedFilter
-  //     );
-  //     // let { selectedFilter } = this.state;
-  //     // if (selectedFilter === "rent" || selectedFilter === "sale") {
-  //     //   this.props.getAllProperties(
-  //     //     this.state.currentPage,
-  //     //     this.state.pageSize,
-  //     //     this.state.selectedFilter
-  //     //   );
-  //     // }
-  //   }
-  // }
   render() {
     let { pageSize, currentPage, selectedFilter } = this.state;
 
@@ -95,8 +69,19 @@ class PropertyListPage extends React.Component {
 
     let renderComponent;
 
-    if (properties === null || loading) {
-      renderComponent = <p>Loading</p>;
+    if (
+      properties === null ||
+      loading ||
+      Object.keys(properties).length === 0
+    ) {
+      renderComponent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
+        </div>
+      );
     } else {
       if (properties.length > 0) {
         renderComponent = properties.map(property => {
