@@ -25,7 +25,8 @@ class PropertyPageUI extends React.Component {
                       <td>
                         <p>{property.title}</p>
                         <img
-                          src="https://placeimg.com/80/80/nature"
+                          src={property.imgUrl}
+                          style={{ width: "150px", height: "100px" }}
                           className=" img-thumbnail border-0"
                           alt=""
                         />

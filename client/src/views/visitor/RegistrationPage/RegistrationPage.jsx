@@ -19,6 +19,10 @@ class RegistrationPage extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearError();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -44,6 +48,13 @@ class RegistrationPage extends React.Component {
   };
 
   render() {
+    let err;
+
+    if (this.props.errors) {
+      err = (
+        <p className="text-center text-danger">{this.props.errors.error}</p>
+      );
+    }
     return (
       <LoginPageUI onFormSubmit={this.onFormSubmit}>
         <Input
@@ -52,6 +63,7 @@ class RegistrationPage extends React.Component {
           name="name"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.name}
         />
         <Input
           label="Your Email"
@@ -59,6 +71,7 @@ class RegistrationPage extends React.Component {
           name="email"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.email}
         />
 
         <Input
@@ -68,6 +81,7 @@ class RegistrationPage extends React.Component {
           name="password"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.password}
         />
         <Input
           label="Confirm Password"
@@ -76,6 +90,7 @@ class RegistrationPage extends React.Component {
           name="password2"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.password2}
         />
       </LoginPageUI>
     );

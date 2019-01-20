@@ -16,6 +16,9 @@ class LoginPage extends React.Component {
       this.props.history.push("/agent/dashboard");
     }
   }
+  componentWillUnmount() {
+    this.props.clearError();
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
@@ -42,14 +45,24 @@ class LoginPage extends React.Component {
     });
   };
   render() {
+    let err;
+
+    if (this.props.errors) {
+      err = (
+        <p className="text-center text-danger">{this.props.errors.error}</p>
+      );
+    }
+
     return (
       <LoginPageUI onFormSubmit={this.onFormSubmit}>
+        {err}
         <Input
           label="Your Email"
           placeholder="email..."
           name="email"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.email}
         />
 
         <Input
@@ -59,6 +72,7 @@ class LoginPage extends React.Component {
           name="password"
           onChange={this.onInputChange}
           value={this.state.value}
+          error={this.props.errors.password}
         />
       </LoginPageUI>
     );

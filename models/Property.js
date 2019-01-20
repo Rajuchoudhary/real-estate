@@ -12,6 +12,11 @@ const propertySchema = new Schema({
     minlength: 5,
     maxlength: 30
   },
+  imgUrl: {
+    type: String,
+    required: true,
+    default: "http://placehold.jp/300x250.png"
+  },
   price: {
     type: Number,
     required: true

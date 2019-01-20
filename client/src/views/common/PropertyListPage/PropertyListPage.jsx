@@ -40,35 +40,6 @@ class PropertyListPage extends React.Component {
       this.state.selectedFilter
     );
   };
-  getPageDate = () => {
-    // const { selectedFilter, currentPage, pageSize } = this.state;
-    // let newCount;
-    // if (selectedFilter === "all" || selectedFilter === "") {
-    //   axios
-    //     .get("/api/property/", {
-    //       params: { status: "" }
-    //     })
-    //     .then(Count => {
-    //       newCount = Count.data.totalCount;
-    //       console.log("all", newCount);
-    //       return newCount;
-    //     })
-    //     .catch(err => console.log(err));
-    // }
-    // if (selectedFilter === "rent" || selectedFilter === "sale") {
-    //   axios
-    //     .get("/api/property/", {
-    //       params: { filter: selectedFilter }
-    //     })
-    //     .then(Count => {
-    //       console.log("filtered", Count.data.totalCount);
-    //       newCount = Count.data.totalCount;
-    //     })
-    //     .catch(err => console.log(err));
-    // }
-    // console.log("getData", newCount);
-    // return { totalCount: newCount };
-  };
 
   render() {
     let { pageSize, currentPage } = this.state;
@@ -100,7 +71,7 @@ class PropertyListPage extends React.Component {
               propertyId={property._id}
               agentId={property.user._id}
               agentName={property.user.name}
-              img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
+              imgUrl={property.imgUrl}
               status={property.status}
               address={property.address}
               price={property.price}

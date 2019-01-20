@@ -80,7 +80,7 @@ router.post("/login", async (req, res) => {
         .status(200)
         .send({ payload: payload, success: true, token: "Bearer " + token });
     } else {
-      res.status(400).send("password incorrect!");
+      res.status(400).send({ error: "email or password incorrect" });
     }
   }
 });

@@ -1,4 +1,9 @@
-import { SET_ERRORS, SET_CURRENT_USER, CLEAR_CURRENT_USER } from "../types";
+import {
+  SET_ERRORS,
+  SET_CURRENT_USER,
+  CLEAR_CURRENT_USER,
+  CLEAR_ERRORS
+} from "../types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../utils/setAuthToken";
@@ -60,4 +65,10 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+export const clearError = () => dispatch => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
 };

@@ -7,6 +7,7 @@ class PropertyDetailUI extends React.Component {
     const { email } = this.props.property.user;
     const {
       title,
+      imgUrl,
       address,
       price,
       status,
@@ -32,7 +33,7 @@ class PropertyDetailUI extends React.Component {
                 <img
                   style={{ width: "360px", height: "280px" }}
                   className="property-img"
-                  src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
+                  src={imgUrl}
                   alt="Responsive"
                 />
               </div>

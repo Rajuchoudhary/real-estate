@@ -24,7 +24,7 @@ class CardOne extends React.Component {
       >
         <img
           className="card-img-top"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "250px" }}
           src={img}
           alt="Property"
         />

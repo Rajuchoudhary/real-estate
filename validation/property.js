@@ -12,6 +12,7 @@ module.exports = function validatePropertyInput(data) {
   data.city = !isEmpty(data.city) ? data.city : "";
   data.propertyType = !isEmpty(data.propertyType) ? data.propertyType : "";
   data.status = !isEmpty(data.status) ? data.status : "";
+  data.imgUrl = !isEmpty(data.imgUrl) ? data.imgUrl : "";
 
   //Title
   if (!Validator.isLength(data.title, { min: 5, max: 30 })) {
@@ -51,6 +52,18 @@ module.exports = function validatePropertyInput(data) {
 
   if (Validator.isEmpty(data.address)) {
     errors.address = "address is required";
+  }
+
+  // //imgUrl
+  if (Validator.isEmpty(data.imgUrl)) {
+    errors.imgUrl = "imgUrl is required";
+  }
+
+  // //imgUrl
+  if (!isEmpty(data.imgUrl)) {
+    if (!Validator.isURL(data.imgUrl)) {
+      errors.imgUrl = "Not a valid URL";
+    }
   }
 
   //Country

@@ -9,6 +9,7 @@ class Input extends React.Component {
 
   render() {
     const {
+      error,
       classes,
       label,
       placeholder,
@@ -18,13 +19,16 @@ class Input extends React.Component {
       validate,
       type = "text"
     } = this.props;
-
+    let msg = "";
+    if (error) {
+      msg = error ? "is-invalid" : "";
+    }
     return (
       <div className={`form-group ${classes}`}>
         <label htmlFor={name}>{label}</label>
         <input
           type={type}
-          className="form-control"
+          className={`form-control ${msg}`}
           placeholder={placeholder}
           name={name}
           onChange={onChange}
@@ -33,6 +37,7 @@ class Input extends React.Component {
           onKeyDown={this.restrictSpace}
           onFocus={validate}
         />
+        <div className="invalid-feedback">{error}</div>
       </div>
     );
   }

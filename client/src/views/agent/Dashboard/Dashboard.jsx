@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile) {
+    if (Object.keys(nextProps.profile.profile).length > 0) {
       const profile = nextProps.profile.profile;
       this.setState({
         propertyCount: profile.propertyCount,
@@ -57,8 +57,6 @@ class Dashboard extends React.Component {
   };
 
   onFormSubmit = e => {
-    console.log("updaet cliek");
-
     e.preventDefault();
     const updateProfileDetails = {
       name: this.state.name,
@@ -75,20 +73,19 @@ class Dashboard extends React.Component {
     };
 
     this.props.updateProfile(updateProfileDetails);
-    console.log("update clicked 2");
   };
 
   render() {
     const { profile, loading } = this.props.profile;
     let renderContent;
     const options = [
-      { label: "Choose...", value: 0 },
+      { label: "Choose...", value: "" },
       { label: "India", value: "india" },
       { label: "USA", value: "usa" },
       { label: "UK", value: "uk" }
     ];
 
-    if (profile === null || loading) {
+    if (profile === null || loading || Object.keys(profile).length === 0) {
       renderContent = <p>loading...</p>;
     } else {
       renderContent = (
@@ -117,6 +114,7 @@ class Dashboard extends React.Component {
                       placeholder="john doe"
                       onChange={this.onInputChange}
                       value={this.state.name}
+                      error={this.props.errors.name}
                     />
 
                     <SelectList
@@ -125,6 +123,7 @@ class Dashboard extends React.Component {
                       onChange={this.onInputChange}
                       value={this.state.country}
                       options={options}
+                      error={this.props.errors.country}
                     />
 
                     <TextArea
@@ -133,6 +132,7 @@ class Dashboard extends React.Component {
                       placeholder="your address"
                       onChange={this.onInputChange}
                       value={this.state.address}
+                      error={this.props.errors.address}
                     />
 
                     <TextArea
@@ -155,6 +155,7 @@ class Dashboard extends React.Component {
                       placeholder="your email..."
                       onChange={this.onInputChange}
                       value={this.state.email}
+                      error={this.props.errors.email}
                     />
 
                     <Input
@@ -163,6 +164,7 @@ class Dashboard extends React.Component {
                       placeholder="your mobile no..."
                       onChange={this.onInputChange}
                       value={this.state.mobile}
+                      error={this.props.errors.mobile}
                     />
 
                     <Input

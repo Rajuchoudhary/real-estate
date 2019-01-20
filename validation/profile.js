@@ -16,8 +16,14 @@ module.exports = function validateUpdateProfile(data) {
   data.twitter = !isEmpty(data.twitter) ? data.twitter : "";
   data.linkedin = !isEmpty(data.linkedin) ? data.linkedin : "";
 
-  if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
-    errors.name = "Name must be between 2 and 30 characters";
+  if (Validator.isEmpty(data.name)) {
+    errors.name = "Name field is required";
+  }
+
+  if (!isEmpty(data.name)) {
+    if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
+      errors.name = "Name must be between 2 and 30 characters";
+    }
   }
 
   if (Validator.isEmpty(data.country)) {
@@ -27,9 +33,10 @@ module.exports = function validateUpdateProfile(data) {
   if (Validator.isEmpty(data.address)) {
     errors.address = "please insert your address";
   }
-
-  if (!Validator.isLength(data.address, { min: 15, max: 100 })) {
-    errors.address = "Address must be atleast 15 characters";
+  if (!isEmpty(data.address)) {
+    if (!Validator.isLength(data.address, { min: 15, max: 100 })) {
+      errors.address = "Address must be atleast 15 characters";
+    }
   }
 
   if (Validator.isEmpty(data.email)) {

@@ -24,6 +24,7 @@ router.post(
     const PropertyDetails = {
       user: req.user.id,
       title: req.body.title,
+      imgUrl: req.body.imgUrl,
       price: req.body.price,
       description: req.body.description,
       address: req.body.address,
@@ -79,10 +80,9 @@ router.post(
       return res.status(400).send(errors);
     }
 
-    console.log("id", req.body.id);
-
     const PropertyDetails = {
       title: req.body.title,
+      imgUrl: req.body.imgUrl,
       price: req.body.price,
       description: req.body.description,
       address: req.body.address,

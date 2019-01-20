@@ -9,7 +9,7 @@ class CardTwo extends React.Component {
       agentId,
       agentName,
       status,
-      img,
+      imgUrl,
       address,
       price,
       text,
@@ -20,6 +20,7 @@ class CardTwo extends React.Component {
       garages
     } = this.props;
     let statusColor = status === "rent" ? "warning" : "success";
+
     return (
       <React.Fragment>
         <div className="row">
@@ -28,7 +29,7 @@ class CardTwo extends React.Component {
               <h4>{title}</h4>
               <span className={`badge badge-${statusColor}`}>{status}</span>
 
-              <img className="card-img-top" src={img} alt="Card cap" />
+              <img className="card-img-top" src={imgUrl} alt="Card cap" />
             </div>
             <div className="col-lg-8 col-md-8  col-sm-8">
               <strong>Address:</strong>

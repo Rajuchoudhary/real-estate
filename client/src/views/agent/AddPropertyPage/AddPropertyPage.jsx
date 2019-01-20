@@ -9,6 +9,7 @@ import { AgentMenu } from "..";
 class AddPropertyPage extends Component {
   state = {
     title: "",
+    imgUrl: "",
     price: "",
     description: "",
     address: "",
@@ -53,6 +54,7 @@ class AddPropertyPage extends Component {
 
     const propertyDetails = {
       title: this.state.title,
+      imgUrl: this.state.imgUrl,
       price: this.state.price,
       description: this.state.description,
       address: this.state.address,
@@ -80,8 +82,8 @@ class AddPropertyPage extends Component {
       tv: this.state.tv
     };
 
-    console.log(propertyDetails);
     console.log(validatePropertyInput(propertyDetails));
+
     if (validatePropertyInput(propertyDetails).isValid) {
       this.props.addProperty(propertyDetails);
     }
@@ -161,6 +163,7 @@ class AddPropertyPage extends Component {
                     placeholder="property title..."
                     onChange={this.handleInputChange}
                     value={this.state.title}
+                    error={this.props.errors.title}
                   />
 
                   <Input
@@ -171,6 +174,16 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.price}
                     validate={this.startWithNonZero}
+                  />
+
+                  <Input
+                    classes="col-md-12"
+                    label="Image Url"
+                    name="imgUrl"
+                    placeholder="property title..."
+                    onChange={this.handleInputChange}
+                    value={this.state.imgUrl}
+                    error={this.props.errors.imgUrl}
                   />
 
                   <TextArea

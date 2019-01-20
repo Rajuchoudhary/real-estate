@@ -9,6 +9,7 @@ class EditPropertyPage extends Component {
   state = {
     id: "",
     title: "",
+    imgUrl: "",
     price: "",
     description: "",
     address: "",
@@ -58,6 +59,7 @@ class EditPropertyPage extends Component {
     const propertyDetails = {
       id: this.state.id,
       title: this.state.title,
+      imgUrl: this.state.imgUrl,
       price: this.state.price,
       description: this.state.description,
       address: this.state.address,
@@ -85,6 +87,8 @@ class EditPropertyPage extends Component {
       tv: this.state.tv
     };
 
+    console.log(validatePropertyInput(propertyDetails));
+
     if (validatePropertyInput(propertyDetails)) {
       this.props.updateProperty(propertyDetails);
     }
@@ -108,11 +112,14 @@ class EditPropertyPage extends Component {
       });
     }
 
+    console.log(nextProps.property.property);
+
     if (nextProps.property.property) {
       const property = nextProps.property.property;
       this.setState({
         id: property._id,
         title: property.title,
+        imgUrl: property.imgUrl,
         price: property.price + "",
         description: property.description,
         address: property.address,
@@ -143,6 +150,8 @@ class EditPropertyPage extends Component {
   }
 
   render() {
+    console.log(this.props.errors);
+
     const options = [
       { label: "Select...", value: "" },
       { label: "India", value: "india" },
@@ -184,6 +193,7 @@ class EditPropertyPage extends Component {
                     placeholder="property title..."
                     onChange={this.handleInputChange}
                     value={this.state.title}
+                    error={this.props.errors.title}
                   />
 
                   <Input
@@ -194,8 +204,17 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.price}
                     validate={this.numbersOnly}
+                    error={this.props.errors.price}
                   />
-
+                  <Input
+                    classes="col-md-12"
+                    label="Image Url"
+                    name="imgUrl"
+                    placeholder="property title..."
+                    onChange={this.handleInputChange}
+                    value={this.state.imgUrl}
+                    error={this.props.errors.imgUrl}
+                  />
                   <TextArea
                     classes="col-md-12"
                     label="Description"
@@ -203,6 +222,7 @@ class EditPropertyPage extends Component {
                     placeholder="description..."
                     onChange={this.handleInputChange}
                     value={this.state.description}
+                    error={this.props.errors.description}
                   />
                 </div>
               </div>
@@ -211,13 +231,7 @@ class EditPropertyPage extends Component {
 
               <div className="location">
                 <strong className="text-muted">Location</strong>
-                <a
-                  className="bg-primary text-white ml-3 px-2"
-                  href="https://www.latlong.net/"
-                  target="_blank"
-                >
-                  lat, lng <i className=" fa fa-question-circle" />
-                </a>
+
                 <a
                   className="bg-primary text-white ml-3 px-2"
                   href="https://www.latlong.net/"
@@ -233,6 +247,7 @@ class EditPropertyPage extends Component {
                     placeholder="1234 Main St..."
                     onChange={this.handleInputChange}
                     value={this.state.address}
+                    error={this.props.errors.address}
                   />
 
                   <Input
@@ -242,6 +257,7 @@ class EditPropertyPage extends Component {
                     placeholder="latitude..."
                     onChange={this.handleInputChange}
                     value={this.state.lat}
+                    error={this.props.errors.lat}
                   />
                   <Input
                     classes="col-md-2"
@@ -250,6 +266,7 @@ class EditPropertyPage extends Component {
                     placeholder="longitude ..."
                     onChange={this.handleInputChange}
                     value={this.state.lng}
+                    error={this.props.errors.lng}
                   />
                 </div>
 
@@ -259,6 +276,7 @@ class EditPropertyPage extends Component {
                   options={options}
                   onChange={this.handleInputChange}
                   value={this.state.country}
+                  error={this.props.errors.country}
                 />
 
                 <div className="form-row">
@@ -269,6 +287,7 @@ class EditPropertyPage extends Component {
                     placeholder="state..."
                     onChange={this.handleInputChange}
                     value={this.state.state}
+                    error={this.props.errors.state}
                   />
                   <Input
                     classes="col-md-4"
@@ -277,6 +296,7 @@ class EditPropertyPage extends Component {
                     placeholder="city..."
                     onChange={this.handleInputChange}
                     value={this.state.city}
+                    error={this.props.errors.city}
                   />
                   <Input
                     classes="col-md-2"
@@ -286,6 +306,7 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.zip}
                     validate={this.numbersOnly}
+                    error={this.props.errors.zip}
                   />
                 </div>
               </div>
@@ -302,6 +323,7 @@ class EditPropertyPage extends Component {
                     name="propertyType"
                     onChange={this.handleInputChange}
                     value={this.state.propertyType}
+                    error={this.props.errors.propertyType}
                   />
 
                   <SelectList
@@ -311,6 +333,7 @@ class EditPropertyPage extends Component {
                     name="status"
                     onChange={this.handleInputChange}
                     value={this.state.status}
+                    error={this.props.errors.status}
                   />
                 </div>
 
@@ -323,6 +346,7 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.beds}
                     validate={this.numbersOnly}
+                    error={this.props.errors.beds}
                   />
 
                   <Input
@@ -333,6 +357,7 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.baths}
                     validate={this.numbersOnly}
+                    error={this.props.errors.baths}
                   />
                 </div>
 
@@ -345,6 +370,7 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.area}
                     validate={this.numbersOnly}
+                    error={this.props.errors.area}
                   />
 
                   <Input
@@ -355,6 +381,7 @@ class EditPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.garages}
                     validate={this.numbersOnly}
+                    error={this.props.errors.garages}
                   />
                 </div>
               </div>

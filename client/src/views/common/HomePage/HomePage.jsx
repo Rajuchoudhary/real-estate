@@ -48,7 +48,7 @@ class HomePage extends React.Component {
           <div key={property._id} className="col-lg-4 col-md-6 col-sm-12 ">
             <CardOne
               propertyId={property._id}
-              img="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
+              img={property.imgUrl}
               title={property.title}
               price={property.price}
               area={property.area}

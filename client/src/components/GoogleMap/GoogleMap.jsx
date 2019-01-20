@@ -60,7 +60,7 @@ class GoogleMap extends React.Component {
 
       marker.addListener("click", function() {
         infoWindow.setContent(`<div class="card" style="width: 18rem;">
-        <img src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg" class="card-img-top" alt="...">
+        <img src=${item.imgUrl} class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${item.title}</h5>
           <h6 class="card-text mb-3">Address: ${item.address}</h6>

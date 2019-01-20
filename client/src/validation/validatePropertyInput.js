@@ -12,6 +12,7 @@ function validatePropertyInput(data) {
   data.city = !isEmpty(data.city) ? data.city : "";
   data.propertyType = !isEmpty(data.propertyType) ? data.propertyType : "";
   data.status = !isEmpty(data.status) ? data.status : "";
+  data.imgUrl = !isEmpty(data.imgUrl) ? data.imgUrl : "";
 
   //Title
   if (!Validator.isLength(data.title, { min: 5, max: 30 })) {
@@ -53,6 +54,17 @@ function validatePropertyInput(data) {
     errors.address = "address is required";
   }
 
+  //imgUrl
+  if (Validator.isEmpty(data.imgUrl)) {
+    errors.imgUrl = "imgUrl is required";
+  }
+
+  //imgUrl
+  if (!isEmpty(data.imgUrl)) {
+    if (!Validator.isURL(data.imgUrl)) {
+      errors.imgUrl = "Not a valid URL";
+    }
+  }
   //lat
   if (Validator.isEmpty(data.lat)) {
     errors.lat = "lat is required";
