@@ -28,6 +28,10 @@ const propertySchema = new Schema({
     minlength: 5,
     maxlength: 50
   },
+  mapLocation: {
+    lat: { type: String, required: true },
+    lng: { type: String, required: true }
+  },
   country: {
     type: String,
     required: true

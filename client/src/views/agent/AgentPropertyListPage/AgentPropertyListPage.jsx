@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Pagination } from "../../../components";
 import PropertyPageUI from "./PropertyPageUI";
-import AgentMenu from "../AgentMenu";
+import { AgentMenu } from "..";
 
 class AgentPropertyListPage extends Component {
   state = {

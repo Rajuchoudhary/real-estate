@@ -12,6 +12,8 @@ class AddPropertyPage extends Component {
     price: "",
     description: "",
     address: "",
+    lat: "",
+    lng: "",
     country: "",
     state: "",
     city: "",
@@ -54,6 +56,8 @@ class AddPropertyPage extends Component {
       price: this.state.price,
       description: this.state.description,
       address: this.state.address,
+      lat: this.state.lat,
+      lng: this.state.lng,
       country: this.state.country,
       state: this.state.state,
       city: this.state.city,
@@ -78,15 +82,25 @@ class AddPropertyPage extends Component {
 
     console.log(propertyDetails);
     console.log(validatePropertyInput(propertyDetails));
-    if (validatePropertyInput(propertyDetails)) {
+    if (validatePropertyInput(propertyDetails).isValid) {
       this.props.addProperty(propertyDetails);
     }
   };
 
-  numbersOnly = e => {
+  startWithNonZero = e => {
     const price = e.currentTarget.value;
 
     if (isNaN(price) || price === "0") {
+      e.currentTarget.value = "";
+    }
+
+    if (price) {
+    }
+  };
+  numbersOnly = e => {
+    const price = e.currentTarget.value;
+
+    if (isNaN(price)) {
       e.currentTarget.value = "";
     }
 
@@ -156,7 +170,7 @@ class AddPropertyPage extends Component {
                     placeholder="price..."
                     onChange={this.handleInputChange}
                     value={this.state.price}
-                    validate={this.numbersOnly}
+                    validate={this.startWithNonZero}
                   />
 
                   <TextArea
@@ -172,15 +186,42 @@ class AddPropertyPage extends Component {
 
               <br />
 
-              <div className="location">
+              <div>
                 <strong className="text-muted">Location</strong>
-                <Input
-                  label="Address"
-                  name="address"
-                  placeholder="1234 Main St..."
-                  onChange={this.handleInputChange}
-                  value={this.state.address}
-                />
+                <a
+                  className="bg-primary text-white ml-3 px-2"
+                  href="https://www.latlong.net/"
+                  target="_blank"
+                >
+                  lat, lng <i className=" fa fa-question-circle" />
+                </a>
+                <div className="form-row">
+                  <Input
+                    classes="col-md-8"
+                    label="Address"
+                    name="address"
+                    placeholder="1234 Main St..."
+                    onChange={this.handleInputChange}
+                    value={this.state.address}
+                  />
+
+                  <Input
+                    classes="col-md-2"
+                    label="Latitude"
+                    name="lat"
+                    placeholder="latitude..."
+                    onChange={this.handleInputChange}
+                    value={this.state.lat}
+                  />
+                  <Input
+                    classes="col-md-2"
+                    label="Longitude "
+                    name="lng"
+                    placeholder="longitude ..."
+                    onChange={this.handleInputChange}
+                    value={this.state.lng}
+                  />
+                </div>
 
                 <SelectList
                   label="Country"

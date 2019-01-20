@@ -27,6 +27,10 @@ router.post(
       price: req.body.price,
       description: req.body.description,
       address: req.body.address,
+      mapLocation: {
+        lat: req.body.lat,
+        lng: req.body.lng
+      },
       country: req.body.country,
       state: req.body.state,
       city: req.body.city,
@@ -154,6 +158,7 @@ router.get("/all", async (req, res) => {
     const propertiesList = await Property.find({ status: filter })
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize * 1)
+      .sort({ date: -1 })
       .populate("user", ["-password"]);
     res.status(200).send(propertiesList);
   }
@@ -161,6 +166,7 @@ router.get("/all", async (req, res) => {
     const propertiesList = await Property.find()
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize * 1)
+      .sort({ date: -1 })
       .populate("user", ["-password"]);
     res.status(200).send(propertiesList);
   }

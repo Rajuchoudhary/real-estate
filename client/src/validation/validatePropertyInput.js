@@ -53,6 +53,15 @@ function validatePropertyInput(data) {
     errors.address = "address is required";
   }
 
+  //lat
+  if (Validator.isEmpty(data.lat)) {
+    errors.lat = "lat is required";
+  }
+  //lng
+  if (Validator.isEmpty(data.lng)) {
+    errors.lng = "lng is required";
+  }
+
   //Country
   if (Validator.isEmpty(data.country)) {
     errors.country = "Please select a country";

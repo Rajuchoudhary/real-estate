@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Input, TextArea, SelectList, CheckBox } from "../../../components/";
@@ -13,6 +12,8 @@ class EditPropertyPage extends Component {
     price: "",
     description: "",
     address: "",
+    lat: "",
+    lng: "",
     country: "",
     state: "",
     city: "",
@@ -61,6 +62,8 @@ class EditPropertyPage extends Component {
       description: this.state.description,
       address: this.state.address,
       country: this.state.country,
+      lat: this.state.lat,
+      lng: this.state.lng,
       state: this.state.state,
       city: this.state.city,
       zip: this.state.zip,
@@ -114,6 +117,8 @@ class EditPropertyPage extends Component {
         description: property.description,
         address: property.address,
         country: property.country,
+        lat: property.mapLocation.lat,
+        lng: property.mapLocation.lng,
         state: property.state,
         city: property.city,
         zip: property.zip + "",
@@ -164,13 +169,6 @@ class EditPropertyPage extends Component {
           <AgentMenu />
           {/* <!-- right section --> */}
           <div className="m-auto col-lg-8 col-md-8 col-sm-12  p-2">
-            <Link
-              to="/agent/properties"
-              className="btn btn-primary float-right"
-            >
-              <i className="fa fa-building" /> Total Properties 52
-            </Link>
-
             {/* <!-- Add New Property --> */}
             <div className="title text-center display-4 mb-4">
               Edit Property
@@ -213,13 +211,47 @@ class EditPropertyPage extends Component {
 
               <div className="location">
                 <strong className="text-muted">Location</strong>
-                <Input
-                  label="Address"
-                  name="address"
-                  placeholder="1234 Main St..."
-                  onChange={this.handleInputChange}
-                  value={this.state.address}
-                />
+                <a
+                  className="bg-primary text-white ml-3 px-2"
+                  href="https://www.latlong.net/"
+                  target="_blank"
+                >
+                  lat, lng <i className=" fa fa-question-circle" />
+                </a>
+                <a
+                  className="bg-primary text-white ml-3 px-2"
+                  href="https://www.latlong.net/"
+                  target="_blank"
+                >
+                  lat, lng <i className=" fa fa-question-circle" />
+                </a>
+                <div className="form-row">
+                  <Input
+                    classes="col-md-8"
+                    label="Address"
+                    name="address"
+                    placeholder="1234 Main St..."
+                    onChange={this.handleInputChange}
+                    value={this.state.address}
+                  />
+
+                  <Input
+                    classes="col-md-2"
+                    label="Latitude"
+                    name="lat"
+                    placeholder="latitude..."
+                    onChange={this.handleInputChange}
+                    value={this.state.lat}
+                  />
+                  <Input
+                    classes="col-md-2"
+                    label="Longitude "
+                    name="lng"
+                    placeholder="longitude ..."
+                    onChange={this.handleInputChange}
+                    value={this.state.lng}
+                  />
+                </div>
 
                 <SelectList
                   label="Country"
