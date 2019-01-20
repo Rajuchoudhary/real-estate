@@ -1,62 +1,18 @@
 import React from "react";
-
-var markersList = [
-  {
-    coords: { lat: 26.2215, lng: 72.9992 },
-    iconImage:
-      "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-    content: `<div class="card" style="width: 18rem;">
-      <img
-        src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
-        class="card-img-top "
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-
-        <a href="#" class="btn btn-primary">
-          Go somewhere
-        </a>
-      </div>
-    </div>`
-  },
-  {
-    coords: { lat: 26.2153, lng: 73.0276 },
-    content: `<div class="card" style="width: 18rem;">
-      <img
-        src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
-        class="card-img-top "
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-
-        <a href="#" class="btn btn-primary">
-          Go somewhere
-        </a>
-      </div>
-    </div>`
-  },
-  {
-    coords: { lat: 26.2284, lng: 73.045 },
-    content: `<div class="card" style="width: 18rem;">
-      <img
-        src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg"
-        class="card-img-top "
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-
-        <a href="#" class="btn btn-primary">
-          Go somewhere
-        </a>
-      </div>
-    </div>`
-  }
-];
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
+import axios from "axios";
+import { Spinner } from "reactstrap";
 
 class GoogleMap extends React.Component {
+  state = {
+    list: []
+  };
+
+  componentDidMount() {
+    this.getList();
+  }
+
   renderMap = () => {
     loadScript(
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEira93lQiKjRh_mEgt5JJWkc_g_1vGJM&callback=initMap"
@@ -64,70 +20,88 @@ class GoogleMap extends React.Component {
     window.initMap = this.initMap;
   };
 
+  //get all properties list
+  getList = () => {
+    axios
+      .get("/api/property/all", {
+        params: { currentPage: 1, pageSize: 10, selectedFilter: "all" }
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState(
+          {
+            list: response.data
+          },
+          this.renderMap()
+        );
+      });
+  };
+
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById("map"), {
-      center: { lat: 26.2153, lng: 73.0243 },
-      zoom: 12
+      center: { lat: 35.60483, lng: -87.66769 },
+      zoom: 3
     });
 
-    markersList.map(item => {
+    //set info window
+    const infoWindow = new window.google.maps.InfoWindow();
+
+    // add all markers  for all properties
+    this.state.list.map(item => {
+      console.log(item.mapLocation.lat);
+
       const marker = new window.google.maps.Marker({
-        position: { lat: item.coords.lat, lng: item.coords.lng },
+        position: {
+          lat: parseFloat(item.mapLocation.lat),
+          lng: parseFloat(item.mapLocation.lng)
+        },
         map: map
       });
 
-      if (item.content) {
-        const infoWindow = new window.google.maps.InfoWindow({
-          content: item.content
-        });
-
-        marker.addListener("click", function() {
-          infoWindow.open(map, marker);
-        });
-      }
-
-      if (item.iconImage) {
-        //Set icon image
-        marker.setIcon(item.iconImage);
-      }
+      marker.addListener("click", function() {
+        infoWindow.setContent(`<div class="card" style="width: 18rem;">
+        <img src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${item.title}</h5>
+          <h6 class="card-text mb-3">Address: ${item.address}</h6>
+          <a href="http://localhost:3000/property-detail/${
+            item._id
+          }" class="btn btn-primary">View Details</a>
+        </div>
+      </div>`);
+        infoWindow.open(map, marker);
+      });
     });
-
-    const infoWindow = new window.google.maps.InfoWindow({
-      content: `<div class="card" style="width: 18rem;">
-      <img src="https://casaroyal.fantasythemes.net/wp-content/uploads/2018/12/chuttersnap-348307-unsplash-1-2.jpg" class="card-img-top " alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>`
-    });
-
-    // marker.addListener("click", function() {
-    //   infoWindow.open(map, marker);
-    // });
-    // marker2.addListener("click", function() {
-    //   infoWindow.open(map, marker2);
-    // });
   };
-
-  componentDidMount() {
-    this.renderMap();
-  }
 
   render() {
     const { width, height } = this.props;
+    let renderComponent;
+
+    if (this.state.list.length > 0) {
+      renderComponent = (
+        <div id="map" className="mt-5" style={{ width, height }} />
+      );
+    } else {
+      renderComponent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
+        </div>
+      );
+    }
 
     return (
-      <div
-        id="map"
-        className="googleMap mt-5"
-        style={{ width, height, backgroundColor: "#bb02ff" }}
-      />
+      <div className="mt-5" style={{ width, height }}>
+        {renderComponent}
+      </div>
     );
   }
 }
 
+//load script function to load google script
 function loadScript(url) {
   const index = window.document.getElementsByTagName("script")[0];
   const script = window.document.createElement("script");
@@ -137,4 +111,13 @@ function loadScript(url) {
   index.parentNode.insertBefore(script, index);
 }
 
-export default GoogleMap;
+const mapStateToPropes = state => {
+  return {
+    properties: state.properties
+  };
+};
+
+export default connect(
+  mapStateToPropes,
+  actions
+)(GoogleMap);

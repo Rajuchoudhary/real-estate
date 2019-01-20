@@ -12,7 +12,7 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getAllProperties(1, 3, "all");
+    this.props.getAllProperties(1, 10, "all");
   }
 
   componentWillReceiveProps(nextProps) {

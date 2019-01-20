@@ -20,7 +20,7 @@ class PropertyDetailUI extends React.Component {
 
     const { _id } = this.props.agent.user;
     const { name, about, mobile, skype } = this.props.agent;
-
+    let statusColor = status === "rent" ? "warning" : "success";
     return (
       <React.Fragment>
         <h1 className="display-4 my-5 text-center">{title}</h1>
@@ -28,6 +28,7 @@ class PropertyDetailUI extends React.Component {
           <div className="col-lg-4 col-md-4 col-sm-12">
             <div className="row mt-4">
               <div className="col-lg-12 col-md-12 col-sm-12">
+                <span className={`badge badge-${statusColor}`}>{status}</span>
                 <img
                   style={{ width: "360px", height: "280px" }}
                   className="property-img"
@@ -84,24 +85,6 @@ class PropertyDetailUI extends React.Component {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              </div>
-
-              <div className="col-lg-12 col-md-12 col-sm-12">
-                <div className="google-map">
-                  <p className="mt-3 border-bottom pb-3">
-                    <strong>Map:</strong>{" "}
-                  </p>
-                  <div
-                    className="my-5"
-                    style={{
-                      width: "100%",
-                      height: "250px",
-                      backgroundColor: "#0eeebc"
-                    }}
-                  >
-                    <GoogleMap width="100%" height="250px" />
-                  </div>
                 </div>
               </div>
             </div>
