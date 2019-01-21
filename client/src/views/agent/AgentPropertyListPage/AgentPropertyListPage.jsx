@@ -20,11 +20,7 @@ class AgentPropertyListPage extends Component {
   }
   handlePageChange = page => {
     this.setState({ currentPage: page });
-    this.props.getAllProperties(
-      page,
-      this.state.pageSize,
-      this.state.selectedFilter
-    );
+    this.props.getUserPropertyList(page, this.state.pageSize);
   };
   deleteProperty = id => {
     this.props.deleteProperty(id);

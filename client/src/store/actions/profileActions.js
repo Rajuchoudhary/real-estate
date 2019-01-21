@@ -62,15 +62,18 @@ export const getUserPropertyList = (
   pageSize
 ) => async dispatch => {
   try {
-    const propertiesList = axios.get("/api/user/property/all", {
+    const propertiesList = await axios.get("/api/user/property/all", {
       params: { currentPage, pageSize }
     });
+    console.log(propertiesList);
 
-    const totalCount = await axios.get("/api/user/property/");
+    const totalCount = await axios.get("/api/user/propertyCount");
+
+    console.log(totalCount);
 
     dispatch({
       type: SET_TOTAL_COUNT,
-      payload: totalCount.data
+      payload: totalCount.data.totalCount
     });
 
     dispatch({
@@ -78,6 +81,8 @@ export const getUserPropertyList = (
       payload: propertiesList.data
     });
   } catch (err) {
+    console.log(err.response.data);
+
     dispatch({
       type: SET_ERRORS,
       payload: err.response.data

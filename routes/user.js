@@ -92,13 +92,22 @@ router.get(
   "/property/all",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    const currentPage = req.query.currentPage;
+    const pageSize = req.query.pageSize;
+
+    console.log(req.user.id);
+
     const propertyList = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
-    });
+    })
+      .skip((currentPage - 1) * pageSize)
+      .limit(pageSize * 1)
+      .sort({ date: -1 })
+      .populate("user", ["-password"]);
 
     console.log("total couunt:", propertyList.length);
 
-    if (propertyList) {
+    if (propertyList.length > 0) {
       res.status(200).send(propertyList);
     } else {
       res.status(400).send({ msg: "no property found" });
@@ -107,15 +116,22 @@ router.get(
 );
 
 //get user property count
-//@Route /api/user/property
+//@Route /api/user/propertyCount
 router.get(
-  "/",
+  "/propertyCount",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("count user id", req.user.id);
+
     const totalCount = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
     }).countDocuments();
-    res.status(200).send({ totalCount: totalCount });
+
+    if (totalCount === 0) {
+      res.status(400).send({ err: "1no property found" });
+    } else {
+      res.status(200).send({ totalCount: totalCount });
+    }
   }
 );
 
