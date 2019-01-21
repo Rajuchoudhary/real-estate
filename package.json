@@ -4,9 +4,13 @@
   "description": "Real Estate project to list properties",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "11.6.0",
+    "npm": "6.5.0-next.0"
   },
   "repository": {
     "type": "git",
