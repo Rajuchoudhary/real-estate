@@ -44,15 +44,32 @@ class PropertyListPage extends React.Component {
   render() {
     let { pageSize, currentPage } = this.state;
 
-    const { totalCount, properties, loading } = this.props.property;
+    const { totalCount, properties } = this.props.property;
 
     let renderComponent;
 
-    if (
-      properties === null ||
-      loading ||
-      Object.keys(properties).length === 0
-    ) {
+    if (properties.length > 0) {
+      renderComponent = properties.map(property => {
+        return (
+          <CardTwo
+            key={property._id}
+            title={property.title}
+            propertyId={property._id}
+            agentId={property.user._id}
+            agentName={property.user.name}
+            imgUrl={property.imgUrl}
+            status={property.status}
+            address={property.address}
+            price={property.price}
+            text={property.description}
+            area={property.area}
+            beds={property.beds}
+            baths={property.baths}
+            garages={property.garages}
+          />
+        );
+      });
+    } else {
       renderComponent = (
         <div
           style={{ width: "100%", height: "100vh" }}
@@ -61,31 +78,6 @@ class PropertyListPage extends React.Component {
           <Spinner color="primary" />
         </div>
       );
-    } else {
-      if (properties.length > 0) {
-        renderComponent = properties.map(property => {
-          return (
-            <CardTwo
-              key={property._id}
-              title={property.title}
-              propertyId={property._id}
-              agentId={property.user._id}
-              agentName={property.user.name}
-              imgUrl={property.imgUrl}
-              status={property.status}
-              address={property.address}
-              price={property.price}
-              text={property.description}
-              area={property.area}
-              beds={property.beds}
-              baths={property.baths}
-              garages={property.garages}
-            />
-          );
-        });
-      } else {
-        renderComponent = <p>no properties found...</p>;
-      }
     }
 
     return (

@@ -24,13 +24,6 @@ class AgentMenu extends React.Component {
           >
             Add New
           </NavLink>
-          {/* <NavLink
-
-            to="/agent/edit-property"
-            className="list-group-item list-group-item-action"
-          >
-            Edit Property
-          </NavLink> */}
         </div>
       </div>
     );

@@ -7,16 +7,15 @@ import { Spinner } from "reactstrap";
 class PropertyDetailPage extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-
     this.props.getProperty(id, this.props.history);
   }
 
   render() {
-    const { property, loading } = this.props.property;
+    const { property } = this.props.property;
 
     let renderComponent;
 
-    if (property === null || loading || Object.keys(property).length === 0) {
+    if (property === null || Object.keys(property).length === 0) {
       renderComponent = (
         <div
           style={{ width: "100%", height: "100vh" }}
@@ -25,9 +24,9 @@ class PropertyDetailPage extends React.Component {
           <Spinner color="primary" />
         </div>
       );
-    } else {
+    }
+    if (Object.keys(property).length > 0) {
       const user = property.userDetails;
-
       renderComponent = <PropertyDetailUI property={property} agent={user} />;
     }
 

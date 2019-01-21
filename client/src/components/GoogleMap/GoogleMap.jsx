@@ -68,6 +68,7 @@ class GoogleMap extends React.Component {
       </div>`);
         infoWindow.open(map, marker);
       });
+      return 0;
     });
   };
 

@@ -59,7 +59,9 @@ router.post(
     const property = await Property.findOne({ title: PropertyDetails.title });
 
     if (property) {
-      return res.status(400).send("property should have unique title.");
+      return res
+        .status(400)
+        .send({ title: "property should have unique title." });
     } else {
       const newProperty = await new Property(PropertyDetails).save();
 

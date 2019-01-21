@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { GoogleMap } from "../../../components";
 
 class PropertyDetailUI extends React.Component {
   render() {

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { TextArea, Input } from "../../../components";
 import SelectList from "../../../components/FormElements/SelectList";
 import { AgentMenu } from "..";
+import { Spinner } from "reactstrap";
 
 class Dashboard extends React.Component {
   state = {
@@ -79,7 +80,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { profile, loading } = this.props.profile;
+    const { profile } = this.props.profile;
     let renderContent;
     const options = [
       { label: "Choose...", value: "" },
@@ -88,9 +89,7 @@ class Dashboard extends React.Component {
       { label: "UK", value: "uk" }
     ];
 
-    if (profile === null || loading || Object.keys(profile).length === 0) {
-      renderContent = <p>loading...</p>;
-    } else {
+    if (Object.keys(profile).length > 0) {
       renderContent = (
         <div className="m-auto col-lg-8 col-md-8 col-sm-12 pb-5  ">
           <div className="">
@@ -227,6 +226,15 @@ class Dashboard extends React.Component {
               </div>
             </form>
           </div>
+        </div>
+      );
+    } else {
+      renderContent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
         </div>
       );
     }

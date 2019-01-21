@@ -36,7 +36,7 @@ class AgentPropertyListPage extends Component {
   render() {
     const { currentPage, pageSize } = this.state;
     let renderComponent;
-    const { totalCount, properties, loading } = this.props.property;
+    const { totalCount, properties } = this.props.property;
 
     if (Object.keys(properties).length > 0) {
       renderComponent = (

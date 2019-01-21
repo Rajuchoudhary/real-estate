@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Input, TextArea, SelectList, CheckBox } from "../../../components/";
-import validatePropertyInput from "../../../validation/validatePropertyInput";
 import { AgentMenu } from "..";
 
 class AddPropertyPage extends Component {
@@ -82,17 +80,7 @@ class AddPropertyPage extends Component {
       tv: this.state.tv
     };
 
-    // console.log(validatePropertyInput(propertyDetails));
-
-    if (!validatePropertyInput(propertyDetails).isValid) {
-      this.props.addProperty(propertyDetails);
-    }
-    if (!validatePropertyInput(propertyDetails).isValid) {
-      this.setState({
-        errors: validatePropertyInput(propertyDetails).errors
-      });
-      console.log(this.state.errors);
-    }
+    this.props.addProperty(propertyDetails);
   };
 
   startWithNonZero = e => {
@@ -106,13 +94,10 @@ class AddPropertyPage extends Component {
     }
   };
   numbersOnly = e => {
-    const price = e.currentTarget.value;
+    const value = e.currentTarget.value;
 
-    if (isNaN(price)) {
+    if (isNaN(value)) {
       e.currentTarget.value = "";
-    }
-
-    if (price) {
     }
   };
   componentWillUnmount() {
@@ -123,10 +108,6 @@ class AddPropertyPage extends Component {
       this.setState({
         errors: nextProps.errors
       });
-      console.log(nextProps.errors);
-    }
-
-    if (nextProps.property.property) {
     }
   }
 
@@ -144,7 +125,6 @@ class AddPropertyPage extends Component {
       { label: "House", value: "house" },
       { label: "Cottage", value: "cottage" }
     ];
-
     const propertyStatus = [
       { label: "Select...", value: "" },
       { label: "Rent", value: "rent" },
@@ -161,7 +141,7 @@ class AddPropertyPage extends Component {
             <div className="title text-center display-4 mb-4">
               Add New Property
             </div>
-            <form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.onFormSubmit} className="pb-3">
               <div className="basic-info">
                 <strong className="text-muted">Basic information</strong>
                 <div className="form-row">
@@ -216,6 +196,7 @@ class AddPropertyPage extends Component {
                   className="bg-primary text-white ml-3 px-2"
                   href="https://www.latlong.net/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   lat, lng <i className=" fa fa-question-circle" />
                 </a>
@@ -452,7 +433,7 @@ class AddPropertyPage extends Component {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-block btn-primary">
+              <button type="submit" className="btn btn-block btn-primary mt-5">
                 Submit
               </button>
             </form>

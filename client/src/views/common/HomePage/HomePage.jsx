@@ -6,33 +6,15 @@ import { GoogleMap, CardOne } from "../../../components";
 import { Spinner } from "reactstrap";
 
 class HomePage extends React.Component {
-  state = {
-    loading: true,
-    properties: []
-  };
-
   componentDidMount() {
     this.props.getAllProperties(1, 10, "all");
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.property.properties) {
-      this.setState({
-        loading: false,
-        properties: nextProps.property.properties
-      });
-    }
-  }
-
   render() {
     let renderComponent;
-    const { properties, loading } = this.props.property;
+    const { properties } = this.props.property;
 
-    if (
-      properties === null ||
-      loading ||
-      Object.keys(properties).length === 0
-    ) {
+    if (properties === null || Object.keys(properties).length === 0) {
       renderComponent = (
         <div
           style={{ width: "100%", height: "100vh" }}

@@ -1,23 +1,20 @@
 import React from "react";
-
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Spinner } from "reactstrap";
-
 import AgentProfileUI from "./AgentProfileUI";
 
 class AgentProfilePage extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-
     this.props.getProfile(id, this.props.history);
   }
 
   render() {
     let renderComponent;
-    const { profile, loading } = this.props.profile;
+    const { profile } = this.props.profile;
 
-    if (profile === null || loading || Object.keys(profile).length === 0) {
+    if (profile === null || Object.keys(profile).length === 0) {
       renderComponent = (
         <div
           style={{ width: "100%", height: "100vh" }}
@@ -27,7 +24,6 @@ class AgentProfilePage extends React.Component {
         </div>
       );
     }
-    console.log(Object.keys(profile).length);
 
     if (Object.keys(profile).length > 0) {
       renderComponent = <AgentProfileUI profileData={profile} />;
@@ -38,7 +34,6 @@ class AgentProfilePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
     profile: state.profile
   };
 };
