@@ -2,7 +2,8 @@ import {
   SET_PROFILE,
   SET_ERRORS,
   SET_ALL_PROPERTIES,
-  SET_TOTAL_COUNT
+  SET_TOTAL_COUNT,
+  CLEAR_PROPERTY
 } from "../types";
 import axios from "axios";
 
@@ -40,15 +41,14 @@ export const getProfile = (id, history) => async dispatch => {
 
 export const getCurrentProfile = () => async dispatch => {
   try {
-    const profile = await axios.get("/api/profile/user/current");
+    const profileData = await axios.get("/api/profile/user/current");
 
-    let Profile2 = profile.data.profile;
-    let newProfile = {
-      ...Profile2,
-      propertyCount: profile.data.propertyCount
-    };
+    dispatch({
+      type: SET_TOTAL_COUNT,
+      payload: profileData.data
+    });
 
-    dispatch(setProfile(newProfile));
+    dispatch(setProfile(profileData.data.profile));
   } catch (err) {
     dispatch({
       type: SET_ERRORS,
@@ -65,15 +65,12 @@ export const getUserPropertyList = (
     const propertiesList = await axios.get("/api/user/property/all", {
       params: { currentPage, pageSize }
     });
-    console.log(propertiesList);
 
     const totalCount = await axios.get("/api/user/propertyCount");
 
-    console.log(totalCount);
-
     dispatch({
       type: SET_TOTAL_COUNT,
-      payload: totalCount.data.totalCount
+      payload: totalCount.data
     });
 
     dispatch({
@@ -82,7 +79,9 @@ export const getUserPropertyList = (
     });
   } catch (err) {
     console.log(err.response.data);
-
+    dispatch({
+      type: CLEAR_PROPERTY
+    });
     dispatch({
       type: SET_ERRORS,
       payload: err.response.data

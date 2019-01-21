@@ -18,7 +18,9 @@ class PropertyListPage extends React.Component {
       this.state.selectedFilter
     );
   }
-
+  componentWillUnmount() {
+    this.props.clearProperty();
+  }
   onInputChange = e => {
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value

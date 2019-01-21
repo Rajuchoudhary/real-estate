@@ -3,9 +3,11 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   SET_ALL_PROPERTIES,
-  SET_TOTAL_COUNT
+  SET_TOTAL_COUNT,
+  CLEAR_PROPERTY
 } from "../types";
 import axios from "axios";
+import { getUserPropertyList } from "./profileActions";
 
 export const addProperty = propertyDetails => async dispatch => {
   dispatch({
@@ -52,7 +54,7 @@ export const deleteProperty = id => async dispatch => {
       }
     });
     console.log(msg.data);
-    dispatch(getAllProperties(1, 5, "all"));
+    dispatch(getUserPropertyList(1, 5));
   } catch (err) {
     console.log(err);
   }
@@ -102,4 +104,10 @@ export const getProperty = (id, history) => async dispatch => {
   } catch (err) {
     history.push("/not-found");
   }
+};
+
+export const clearProperty = () => dispatch => {
+  dispatch({
+    type: CLEAR_PROPERTY
+  });
 };

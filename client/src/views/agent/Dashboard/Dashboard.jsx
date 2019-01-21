@@ -32,6 +32,7 @@ class Dashboard extends React.Component {
   }
   componentWillUnmount() {
     this.props.clearError();
+    this.props.clearProperty();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +42,7 @@ class Dashboard extends React.Component {
       console.log(nextProps.profile);
 
       this.setState({
-        propertyCount: profile.propertyCount,
+        propertyCount: this.props.property.totalCount,
         name: this.props.auth.user.name,
         country: profile.country,
         address: profile.address,
@@ -83,6 +84,8 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    console.log(this.props.profile);
+
     const { profile } = this.props.profile;
     let renderContent;
     const options = [
@@ -259,7 +262,8 @@ const mapStateToProps = state => {
   return {
     errors: state.errors,
     auth: state.auth,
-    profile: state.profile
+    profile: state.profile,
+    property: state.property
   };
 };
 

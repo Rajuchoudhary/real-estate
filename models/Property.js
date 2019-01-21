@@ -78,8 +78,7 @@ const propertySchema = new Schema({
     required: true
   },
   garages: {
-    type: Number,
-    required: true
+    type: Number
   },
   features: {
     ac: { type: Boolean, default: false },

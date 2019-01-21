@@ -17,6 +17,7 @@ class AgentPropertyListPage extends Component {
   }
   componentWillUnmount() {
     this.props.clearError();
+    this.props.clearProperty();
   }
   handlePageChange = page => {
     this.setState({ currentPage: page });
@@ -47,6 +48,12 @@ class AgentPropertyListPage extends Component {
         </div>
       );
     }
+    console.log(this.props.property);
+    console.log(this.props.errors);
+
+    if (Object.keys(this.props.errors).length > 0) {
+      renderComponent = <p>no proerties found</p>;
+    }
 
     return (
       <div className="container-fluid">
@@ -73,6 +80,7 @@ class AgentPropertyListPage extends Component {
 
 const mapStateToPrope = state => {
   return {
+    errors: state.errors,
     property: state.property
   };
 };

@@ -98,7 +98,7 @@ router.get(
     const profile = await Profile.findOne({
       user: mongoose.Types.ObjectId(req.user.id)
     }).populate("user", ["-password"]);
-    const propertyCount = await Property.find({
+    const totalCount = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
     }).countDocuments();
     console.log(profile);
@@ -107,6 +107,12 @@ router.get(
       console.log("yes its null");
       //set demo fields
       const profile = {
+        country: "",
+        address: "",
+        about: "",
+        mobile: "",
+        skype: "",
+        website: "",
         socialMedia: {
           facebook: "www.facebook.com",
           twitter: "www.twitter.com",
@@ -115,9 +121,9 @@ router.get(
       };
       console.log(profile);
 
-      res.status(200).send({ profile, propertyCount: 0 });
+      res.status(200).send({ profile, totalCount });
     } else {
-      res.status(200).send({ profile, propertyCount });
+      res.status(200).send({ profile, totalCount });
     }
   }
 );
