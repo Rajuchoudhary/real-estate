@@ -101,18 +101,24 @@ router.get(
     const propertyCount = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
     }).countDocuments();
-    console.log(propertyCount);
+    console.log(profile);
 
-    let Profile2 = profile;
-    let newProfile = {
-      ...Profile2,
-      propertyCount: propertyCount
-    };
+    if (profile === null) {
+      console.log("yes its null");
+      //set demo fields
+      const profile = {
+        socialMedia: {
+          facebook: "www.facebook.com",
+          twitter: "www.twitter.com",
+          linkedin: "www.linkedin.com"
+        }
+      };
+      console.log(profile);
 
-    console.log("new", Profile2);
-
-    res.status(200).send({ profile, propertyCount });
-    // console.log(profile);
+      res.status(200).send({ profile, propertyCount: 0 });
+    } else {
+      res.status(200).send({ profile, propertyCount });
+    }
   }
 );
 module.exports = router;

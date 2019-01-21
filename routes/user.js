@@ -85,6 +85,40 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//get all user properties
+//@Route /api/user/property/all
+
+router.get(
+  "/property/all",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const propertyList = await Property.find({
+      user: mongoose.Types.ObjectId(req.user.id)
+    });
+
+    console.log("total couunt:", propertyList.length);
+
+    if (propertyList) {
+      res.status(200).send(propertyList);
+    } else {
+      res.status(400).send({ msg: "no property found" });
+    }
+  }
+);
+
+//get user property count
+//@Route /api/user/property
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const totalCount = await Property.find({
+      user: mongoose.Types.ObjectId(req.user.id)
+    }).countDocuments();
+    res.status(200).send({ totalCount: totalCount });
+  }
+);
+
 //get  user properties
 //@Route /api/user/property/:id
 router.get("/property/:id", async (req, res) => {

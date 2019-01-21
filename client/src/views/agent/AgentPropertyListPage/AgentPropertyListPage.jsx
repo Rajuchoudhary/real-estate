@@ -13,11 +13,7 @@ class AgentPropertyListPage extends Component {
     selectedFilter: "all"
   };
   componentWillMount() {
-    this.props.getAllProperties(
-      this.state.currentPage,
-      this.state.pageSize,
-      this.state.selectedFilter
-    );
+    this.props.getUserPropertyList(this.state.currentPage, this.state.pageSize);
   }
   componentWillUnmount() {
     this.props.clearError();

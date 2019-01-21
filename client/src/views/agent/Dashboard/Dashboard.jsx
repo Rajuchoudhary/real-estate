@@ -37,13 +37,16 @@ class Dashboard extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (Object.keys(nextProps.profile.profile).length > 0) {
       const profile = nextProps.profile.profile;
+      // console.log(Object.keys(nextProps.profile));
+      console.log(nextProps.profile);
+
       this.setState({
         propertyCount: profile.propertyCount,
-        name: profile.user.name,
+        name: this.props.auth.user.name,
         country: profile.country,
         address: profile.address,
         about: profile.about,
-        email: profile.user.email,
+        email: this.props.auth.user.email,
         mobile: profile.mobile + "",
         skype: profile.skype,
         website: profile.website,
