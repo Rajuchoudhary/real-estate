@@ -3,15 +3,15 @@ import React from "react";
 class AgentProfileUI extends React.Component {
   render() {
     const { name, email } = this.props.profileData.user;
-    const {
-      properties,
-      about,
-      mobile,
-      skype,
-      socialMedia
-    } = this.props.profileData;
+    const { about, mobile, skype, socialMedia } = this.props.profileData;
 
     let renderContent;
+    let totalProperties;
+
+    if (this.props.profileData.properties.length > 0) {
+      totalProperties = this.props.profileData.properties.length;
+    }
+
     if (Object.keys(this.props.profileData).length > 0) {
       renderContent = (
         <div className="agent-profile my-5 ">
@@ -28,7 +28,7 @@ class AgentProfileUI extends React.Component {
                 {name}
                 <span className=" float-right m-auto badge badge-dark">
                   <i className="fa fa-home" />
-                  Total Properties: {properties.length}
+                  Total Properties: {totalProperties}
                 </span>
               </h5>
               <p>{about}</p>
