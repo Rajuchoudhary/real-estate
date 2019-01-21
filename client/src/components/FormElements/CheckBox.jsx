@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckBox = ({ id, label, name, checked, onChange }) => {
+const CheckBox = ({ label, name, checked, onChange }) => {
   return (
     <div className="custom-control custom-checkbox  col-md-4 offset-1">
       <input

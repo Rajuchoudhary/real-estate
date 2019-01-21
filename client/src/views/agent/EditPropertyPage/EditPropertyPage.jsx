@@ -42,6 +42,9 @@ class EditPropertyPage extends Component {
   componentWillMount() {
     this.props.getProperty(this.props.match.params.id, this.props.history);
   }
+  componentWillUnmount() {
+    this.props.clearError();
+  }
 
   handleInputChange = ({ currentTarget }) => {
     const value =

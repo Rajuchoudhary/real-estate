@@ -29,6 +29,9 @@ class Dashboard extends React.Component {
       this.props.history.push("/login");
     }
   }
+  componentWillUnmount() {
+    this.props.clearError();
+  }
 
   componentWillReceiveProps(nextProps) {
     if (Object.keys(nextProps.profile.profile).length > 0) {

@@ -26,7 +26,10 @@ class AgentProfilePage extends React.Component {
           <Spinner color="primary" />
         </div>
       );
-    } else if (Object.keys(profile).length > 0) {
+    }
+    console.log(Object.keys(profile).length);
+
+    if (Object.keys(profile).length > 0) {
       renderComponent = <AgentProfileUI profileData={profile} />;
     }
     return <div className="container">{renderComponent}</div>;

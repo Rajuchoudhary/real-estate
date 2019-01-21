@@ -48,13 +48,6 @@ class RegistrationPage extends React.Component {
   };
 
   render() {
-    let err;
-
-    if (this.props.errors) {
-      err = (
-        <p className="text-center text-danger">{this.props.errors.error}</p>
-      );
-    }
     return (
       <LoginPageUI onFormSubmit={this.onFormSubmit}>
         <Input

@@ -27,7 +27,6 @@ class GoogleMap extends React.Component {
         params: { currentPage: 1, pageSize: 10, selectedFilter: "all" }
       })
       .then(response => {
-        console.log(response.data);
         this.setState(
           {
             list: response.data
@@ -48,8 +47,6 @@ class GoogleMap extends React.Component {
 
     // add all markers  for all properties
     this.state.list.map(item => {
-      console.log(item.mapLocation.lat);
-
       const marker = new window.google.maps.Marker({
         position: {
           lat: parseFloat(item.mapLocation.lat),
@@ -101,7 +98,7 @@ class GoogleMap extends React.Component {
   }
 }
 
-//load script function to load google script
+//loadscript function to load google script
 function loadScript(url) {
   const index = window.document.getElementsByTagName("script")[0];
   const script = window.document.createElement("script");

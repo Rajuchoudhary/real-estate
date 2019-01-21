@@ -35,7 +35,7 @@ class AddPropertyPage extends Component {
     toaster: "",
     tennis: "",
     tv: "",
-    loading: false,
+
     errors: {}
   };
 
@@ -82,10 +82,16 @@ class AddPropertyPage extends Component {
       tv: this.state.tv
     };
 
-    console.log(validatePropertyInput(propertyDetails));
+    // console.log(validatePropertyInput(propertyDetails));
 
-    if (validatePropertyInput(propertyDetails).isValid) {
+    if (!validatePropertyInput(propertyDetails).isValid) {
       this.props.addProperty(propertyDetails);
+    }
+    if (!validatePropertyInput(propertyDetails).isValid) {
+      this.setState({
+        errors: validatePropertyInput(propertyDetails).errors
+      });
+      console.log(this.state.errors);
     }
   };
 
@@ -109,12 +115,15 @@ class AddPropertyPage extends Component {
     if (price) {
     }
   };
-
+  componentWillUnmount() {
+    this.props.clearError();
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
+      console.log(nextProps.errors);
     }
 
     if (nextProps.property.property) {
@@ -174,6 +183,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.price}
                     validate={this.startWithNonZero}
+                    error={this.props.errors.price}
                   />
 
                   <Input
@@ -193,6 +203,7 @@ class AddPropertyPage extends Component {
                     placeholder="description..."
                     onChange={this.handleInputChange}
                     value={this.state.description}
+                    error={this.props.errors.description}
                   />
                 </div>
               </div>
@@ -216,6 +227,7 @@ class AddPropertyPage extends Component {
                     placeholder="1234 Main St..."
                     onChange={this.handleInputChange}
                     value={this.state.address}
+                    error={this.props.errors.address}
                   />
 
                   <Input
@@ -225,6 +237,7 @@ class AddPropertyPage extends Component {
                     placeholder="latitude..."
                     onChange={this.handleInputChange}
                     value={this.state.lat}
+                    error={this.props.errors.lat}
                   />
                   <Input
                     classes="col-md-2"
@@ -233,6 +246,7 @@ class AddPropertyPage extends Component {
                     placeholder="longitude ..."
                     onChange={this.handleInputChange}
                     value={this.state.lng}
+                    error={this.props.errors.lng}
                   />
                 </div>
 
@@ -242,6 +256,7 @@ class AddPropertyPage extends Component {
                   options={options}
                   onChange={this.handleInputChange}
                   value={this.state.country}
+                  error={this.props.errors.country}
                 />
 
                 <div className="form-row">
@@ -252,6 +267,7 @@ class AddPropertyPage extends Component {
                     placeholder="state..."
                     onChange={this.handleInputChange}
                     value={this.state.state}
+                    error={this.props.errors.state}
                   />
                   <Input
                     classes="col-md-4"
@@ -260,6 +276,7 @@ class AddPropertyPage extends Component {
                     placeholder="city..."
                     onChange={this.handleInputChange}
                     value={this.state.city}
+                    error={this.props.errors.city}
                   />
                   <Input
                     classes="col-md-2"
@@ -269,6 +286,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.zip}
                     validate={this.numbersOnly}
+                    error={this.props.errors.zip}
                   />
                 </div>
               </div>
@@ -285,6 +303,7 @@ class AddPropertyPage extends Component {
                     name="propertyType"
                     onChange={this.handleInputChange}
                     value={this.state.propertyType}
+                    error={this.props.errors.propertyType}
                   />
 
                   <SelectList
@@ -294,6 +313,7 @@ class AddPropertyPage extends Component {
                     name="status"
                     onChange={this.handleInputChange}
                     value={this.state.status}
+                    error={this.props.errors.status}
                   />
                 </div>
 
@@ -306,6 +326,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.beds}
                     validate={this.numbersOnly}
+                    error={this.props.errors.beds}
                   />
 
                   <Input
@@ -316,6 +337,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.baths}
                     validate={this.numbersOnly}
+                    error={this.props.errors.baths}
                   />
                 </div>
 
@@ -328,6 +350,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.area}
                     validate={this.numbersOnly}
+                    error={this.props.errors.area}
                   />
 
                   <Input
@@ -338,6 +361,7 @@ class AddPropertyPage extends Component {
                     onChange={this.handleInputChange}
                     value={this.state.garages}
                     validate={this.numbersOnly}
+                    error={this.props.errors.garages}
                   />
                 </div>
               </div>

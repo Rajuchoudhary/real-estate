@@ -4,6 +4,7 @@ import * as actions from "../../../store/actions";
 import { Pagination } from "../../../components";
 import PropertyPageUI from "./PropertyPageUI";
 import { AgentMenu } from "..";
+import { Spinner } from "reactstrap";
 
 class AgentPropertyListPage extends Component {
   state = {
@@ -17,6 +18,9 @@ class AgentPropertyListPage extends Component {
       this.state.pageSize,
       this.state.selectedFilter
     );
+  }
+  componentWillUnmount() {
+    this.props.clearError();
   }
   handlePageChange = page => {
     this.setState({ currentPage: page });
@@ -34,22 +38,22 @@ class AgentPropertyListPage extends Component {
     let renderComponent;
     const { totalCount, properties, loading } = this.props.property;
 
-    if (properties === null || loading) {
-      renderComponent = <p>Loading</p>;
+    if (Object.keys(properties).length > 0) {
+      renderComponent = (
+        <PropertyPageUI
+          deleteProperty={this.deleteProperty}
+          dataList={properties}
+        />
+      );
     } else {
-      if (properties.length > 0) {
-        renderComponent = (
-          <PropertyPageUI
-            deleteProperty={this.deleteProperty}
-            dataList={properties}
-          />
-        );
-      } else {
-        renderComponent = <p>loading...</p>;
-      }
-    }
-    if (properties.length === 0) {
-      renderComponent = <p>no property found...</p>;
+      renderComponent = (
+        <div
+          style={{ width: "100%", height: "100vh" }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Spinner color="primary" />
+        </div>
+      );
     }
 
     return (

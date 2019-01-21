@@ -5,10 +5,8 @@ import PropertyDetailPage from "./PropertyDetailPage/PropertyDetailPage";
 import AgentProfilePage from "./AgentProfilePage/AgentProfilePage";
 import AboutPage from "./AboutPage/AboutPage";
 import ContactPage from "./ContactPage/ContactPage";
-import AgentsListPage from "./AgentsListPage/AgentsListPage";
 
 export {
-  AgentsListPage,
   AboutPage,
   ContactPage,
   HomePage,
