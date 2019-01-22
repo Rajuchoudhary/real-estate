@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import axios from "axios";
 import { Spinner } from "reactstrap";
+const google_key = process.env.REACT_APP_GOOGLE_KEY;
 
 class GoogleMap extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class GoogleMap extends React.Component {
 
   renderMap = () => {
     loadScript(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEira93lQiKjRh_mEgt5JJWkc_g_1vGJM&callback=initMap"
+      `https://maps.googleapis.com/maps/api/js?key=${google_key}&callback=initMap`
     );
     window.initMap = this.initMap;
   };

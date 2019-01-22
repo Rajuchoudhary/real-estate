@@ -2,3 +2,4 @@
 /client/node_modules
 /config/keys_dev.js
 data.json
+./client/src/.env
