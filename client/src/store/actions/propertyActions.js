@@ -5,7 +5,9 @@ import {
   SET_ALL_PROPERTIES,
   SET_TOTAL_COUNT,
   CLEAR_PROPERTY,
-  SET_PROFILE
+  SET_PROFILE,
+  SET_MESSAGE,
+  CLEAR_MESSAGE
 } from "../types";
 import axios from "axios";
 import { getUserPropertyList } from "./profileActions";
@@ -14,11 +16,18 @@ export const addProperty = propertyDetails => async dispatch => {
   dispatch({
     type: CLEAR_ERRORS
   });
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
   try {
-    const property = await axios.post("/api/property/add", propertyDetails);
+    const res = await axios.post("/api/property/add", propertyDetails);
     dispatch({
       type: SET_PROPERTY,
-      payload: property.data
+      payload: res.data.property
+    });
+    dispatch({
+      type: SET_MESSAGE,
+      payload: res.data.msg
     });
   } catch (err) {
     dispatch({
@@ -49,15 +58,18 @@ export const updateProperty = propertyDetails => async dispatch => {
 
 export const deleteProperty = id => async dispatch => {
   try {
-    const msg = await axios.delete("/api/property/delete", {
+    await axios.delete("/api/property/delete", {
       params: {
         id: id
       }
     });
-    console.log(msg.data);
+
     dispatch(getUserPropertyList(1, 5));
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: SET_ERRORS,
+      payload: err.response.data
+    });
   }
 };
 
@@ -66,6 +78,10 @@ export const getAllProperties = (
   pageSize,
   selectedFilter
 ) => async dispatch => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
+
   try {
     const propertiesList = await axios.get("/api/property/all", {
       params: { currentPage, pageSize, selectedFilter }
@@ -84,7 +100,12 @@ export const getAllProperties = (
       type: SET_ALL_PROPERTIES,
       payload: propertiesList.data
     });
-  } catch (err) {}
+  } catch (err) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: err.response.data
+    });
+  }
 };
 
 export const getProperty = (id, history) => async dispatch => {

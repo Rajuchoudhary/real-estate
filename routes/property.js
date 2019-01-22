@@ -65,7 +65,9 @@ router.post(
     } else {
       const newProperty = await new Property(PropertyDetails).save();
 
-      res.status(200).send(newProperty);
+      res
+        .status(200)
+        .send({ newProperty, msg: "property added successfully!" });
     }
   }
 );
@@ -138,17 +140,12 @@ router.delete(
   "/delete",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(req.query.id);
-    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
-      const message = await Property.findByIdAndDelete({ _id: req.query.id });
+    const message = await Property.findByIdAndDelete({ _id: req.query.id });
 
-      if (message) {
-        res.status(200).send({ msg: "deleted" });
-      } else {
-        res.status(400).send({ msg: "wrong" });
-      }
+    if (message) {
+      res.status(200).send({ msg: "deleted" });
     } else {
-      res.status(400).send({ err: "not found" });
+      res.status(400).send({ msg: "not found" });
     }
   }
 );
@@ -167,7 +164,12 @@ router.get("/all", async (req, res) => {
       .limit(pageSize * 1)
       .sort({ date: -1 })
       .populate("user", ["-password"]);
-    res.status(200).send(propertiesList);
+
+    if (propertiesList.length > 0) {
+      res.status(200).send(propertiesList);
+    } else {
+      res.status(400).send({ err: "not found" });
+    }
   }
   if (filter === "all") {
     const propertiesList = await Property.find()

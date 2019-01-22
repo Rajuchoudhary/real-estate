@@ -30,8 +30,6 @@ export const getProfile = (id, history) => async dispatch => {
       payload: { totalCount: propertyList.data.length }
     });
 
-    console.log(profile.data);
-
     dispatch(setProfile(profile.data));
   } catch (err) {
     history.push("/not-found");
@@ -81,7 +79,6 @@ export const getUserPropertyList = (
       payload: propertiesList.data
     });
   } catch (err) {
-    console.log(err.response.data);
     dispatch({
       type: CLEAR_PROPERTY
     });

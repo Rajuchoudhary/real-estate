@@ -23,7 +23,20 @@ class PropertyPageUI extends React.Component {
                   return (
                     <tr key={property._id}>
                       <td>
-                        <p>{property.title}</p>
+                        <p>
+                          {property.title}
+                          {"  "}
+                          <span
+                            className={
+                              property.status === "rent"
+                                ? "badge badge-warning"
+                                : "badge badge-success"
+                            }
+                          >
+                            {property.status}
+                          </span>
+                        </p>
+
                         <img
                           src={property.imgUrl}
                           style={{ width: "150px", height: "100px" }}

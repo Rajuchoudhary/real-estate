@@ -5,11 +5,7 @@ import * as actions from "../../../store/actions";
 import { Input } from "../../../components";
 
 class LoginPage extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {}
-  };
+  state = { email: "", password: "", errors: {} };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -36,6 +32,7 @@ class LoginPage extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
+
     this.props.loginUser(loginDetail);
   };
 
@@ -45,6 +42,8 @@ class LoginPage extends React.Component {
     });
   };
   render() {
+    console.log("loginmsg", this.props.message.msg);
+
     let err;
 
     if (this.props.errors) {
@@ -81,6 +80,7 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    message: state.message,
     errors: state.errors,
     auth: state.auth
   };

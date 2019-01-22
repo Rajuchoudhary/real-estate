@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { Input, TextArea, SelectList, CheckBox } from "../../../components/";
@@ -112,6 +113,10 @@ class AddPropertyPage extends Component {
   }
 
   render() {
+    if (Object.keys(this.props.message.msg).length > 0) {
+      toast.success(this.props.message.msg);
+    }
+
     const options = [
       { label: "Select...", value: "" },
       { label: "India", value: "india" },
@@ -446,6 +451,7 @@ class AddPropertyPage extends Component {
 
 const mapStateToProps = state => {
   return {
+    message: state.message,
     errors: state.errors,
     property: state.property
   };

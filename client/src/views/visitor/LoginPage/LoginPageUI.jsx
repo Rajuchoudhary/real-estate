@@ -9,11 +9,7 @@ const LoginPageUI = props => {
             <div className="title text-center display-4">Login</div>
             {props.children}
             <div className="form-group">
-              <input
-                type="submit"
-                className="btn btn-primary btn-block"
-                value="login"
-              />
+              <button className="btn btn-primary btn-block">Login</button>
             </div>
           </form>
         </div>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -41,6 +42,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <React.Fragment>
+            <ToastContainer />
             <Header />
             <Routes />
             <Footer />

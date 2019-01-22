@@ -50,7 +50,7 @@ class PropertyListPage extends React.Component {
 
     let renderComponent;
 
-    if (properties.length > 0) {
+    if (properties.length > 0 && Object.keys(this.props.errors).length === 0) {
       renderComponent = properties.map(property => {
         return (
           <CardTwo
@@ -72,19 +72,29 @@ class PropertyListPage extends React.Component {
         );
       });
     } else {
-      renderComponent = (
-        <div
-          style={{ width: "100%", height: "100vh" }}
-          className="d-flex align-items-center justify-content-center"
-        >
-          <Spinner color="primary" />
-        </div>
-      );
+      if (Object.keys(this.props.errors).length > 0) {
+        renderComponent = (
+          <p className="d-flex justify-content-center align-items-center text-warning display-4">
+            No result for selected Filter
+          </p>
+        );
+      } else {
+        renderComponent = (
+          <div
+            style={{ width: "100%", height: "100vh" }}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <Spinner color="primary" />
+          </div>
+        );
+      }
     }
 
     return (
       <div className="container">
-        <h1 className="display-4 my-5 text-center">Properties List:</h1>
+        <h1 className="display-4 my-5 text-center">
+          Properties List:{totalCount}
+        </h1>
         <div className="row">
           <div className="col-6">
             <form>
@@ -121,6 +131,7 @@ class PropertyListPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    errors: state.errors,
     property: state.property
   };
 };

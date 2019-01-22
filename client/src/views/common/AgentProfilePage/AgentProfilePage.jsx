@@ -14,8 +14,6 @@ class AgentProfilePage extends React.Component {
     let renderComponent;
     const { profile } = this.props.profile;
 
-    console.log("profile ", this.props.profile.profile);
-
     if (Object.keys(profile).length === 0) {
       renderComponent = (
         <div

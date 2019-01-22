@@ -28,6 +28,7 @@ class AgentPropertyListPage extends Component {
   };
   render() {
     const { currentPage, pageSize } = this.state;
+
     let renderComponent;
     const { totalCount, properties } = this.props.property;
 

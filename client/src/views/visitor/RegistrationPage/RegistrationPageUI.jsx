@@ -12,7 +12,7 @@ const RegistrationPageUI = props => {
               <input
                 type="submit"
                 className="btn btn-primary btn-block"
-                value="login"
+                value="Register"
               />
             </div>
           </form>

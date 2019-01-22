@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import * as actions from "../../../store/actions";
-import LoginPageUI from "../LoginPage/LoginPageUI";
 import { Input } from "../../../components";
+import RegistrationPageUI from "./RegistrationPageUI";
 
 class RegistrationPage extends React.Component {
   state = {
@@ -48,8 +49,16 @@ class RegistrationPage extends React.Component {
   };
 
   render() {
+    if (Object.keys(this.props.message.msg).length > 0) {
+      toast.success(this.props.message.msg);
+    }
+
+    if (this.props.errors.error) {
+      toast.error(this.props.errors.error);
+    }
+
     return (
-      <LoginPageUI onFormSubmit={this.onFormSubmit}>
+      <RegistrationPageUI onFormSubmit={this.onFormSubmit}>
         <Input
           label="Your Name"
           placeholder="name..."
@@ -85,13 +94,14 @@ class RegistrationPage extends React.Component {
           value={this.state.value}
           error={this.props.errors.password2}
         />
-      </LoginPageUI>
+      </RegistrationPageUI>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
+    message: state.message,
     errors: state.errors,
     auth: state.auth
   };
