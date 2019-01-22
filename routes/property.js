@@ -182,9 +182,12 @@ router.get("/:id", async (req, res) => {
     const propertyDetail = await Property.findOne({
       _id: req.params.id
     }).populate("user", ["-password"]);
+    console.log(propertyDetail);
 
     if (propertyDetail) {
       return res.status(200).send(propertyDetail);
+    } else {
+      return res.status(400).send({ msg: "no found" });
     }
   } else {
     res.status(400).send("Not found");
