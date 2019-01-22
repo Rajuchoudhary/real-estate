@@ -4,7 +4,8 @@ import {
   CLEAR_ERRORS,
   SET_ALL_PROPERTIES,
   SET_TOTAL_COUNT,
-  CLEAR_PROPERTY
+  CLEAR_PROPERTY,
+  SET_PROFILE
 } from "../types";
 import axios from "axios";
 import { getUserPropertyList } from "./profileActions";
@@ -90,17 +91,17 @@ export const getProperty = (id, history) => async dispatch => {
   try {
     let property = await axios.get(`/api/property/${id}`);
 
-    !property && history.push("/not-found");
-
     const profile = await axios.get(`/api/profile/${property.data.user._id}`);
 
-    property.data.userDetails = profile.data;
+    dispatch({
+      type: SET_PROFILE,
+      payload: profile.data
+    });
 
-    property &&
-      dispatch({
-        type: SET_PROPERTY,
-        payload: property.data
-      });
+    dispatch({
+      type: SET_PROPERTY,
+      payload: property.data
+    });
   } catch (err) {
     history.push("/not-found");
   }

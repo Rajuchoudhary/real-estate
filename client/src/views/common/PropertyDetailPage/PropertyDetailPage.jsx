@@ -26,8 +26,12 @@ class PropertyDetailPage extends React.Component {
       );
     }
     if (Object.keys(property).length > 0) {
-      const user = property.userDetails;
-      renderComponent = <PropertyDetailUI property={property} agent={user} />;
+      renderComponent = (
+        <PropertyDetailUI
+          property={property}
+          agent={this.props.profile.profile}
+        />
+      );
     }
 
     return <div className="container">{renderComponent}</div>;
@@ -36,6 +40,7 @@ class PropertyDetailPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    profile: state.profile,
     property: state.property
   };
 };
