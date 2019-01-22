@@ -7,6 +7,9 @@ module.exports = function validatePropertyInput(data) {
   data.title = !isEmpty(data.title) ? data.title : "";
   data.description = !isEmpty(data.description) ? data.description : "";
   data.address = !isEmpty(data.address) ? data.address : "";
+  data.lat = !isEmpty(data.lat) ? data.lat : "";
+  data.lng = !isEmpty(data.lng) ? data.lng : "";
+  data.zip = !isEmpty(data.zip) ? data.zip : "";
   data.country = !isEmpty(data.country) ? data.country : "";
   data.state = !isEmpty(data.state) ? data.state : "";
   data.city = !isEmpty(data.city) ? data.city : "";
@@ -54,12 +57,27 @@ module.exports = function validatePropertyInput(data) {
     errors.address = "address is required";
   }
 
-  // //imgUrl
+  //lat
+  if (Validator.isEmpty(data.lat)) {
+    errors.lat = "lat is required";
+  }
+
+  //lng
+  if (Validator.isEmpty(data.lng)) {
+    errors.lng = "lng is required";
+  }
+
+  //zip
+  if (Validator.isEmpty(data.zip)) {
+    errors.zip = "zip is required";
+  }
+
+  //imgUrl
   if (Validator.isEmpty(data.imgUrl)) {
     errors.imgUrl = "imgUrl is required";
   }
 
-  // //imgUrl
+  //imgUrl
   if (!isEmpty(data.imgUrl)) {
     if (!Validator.isURL(data.imgUrl)) {
       errors.imgUrl = "Not a valid URL";
@@ -123,6 +141,14 @@ module.exports = function validatePropertyInput(data) {
   } else {
     if (isNaN(data.area)) {
       errors.area = "only numbers";
+    }
+  }
+  //garages
+  if (Validator.isEmpty(data.garages)) {
+    errors.garages = "garages is required";
+  } else {
+    if (isNaN(data.garages)) {
+      errors.garages = "only numbers";
     }
   }
 
