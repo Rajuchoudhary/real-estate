@@ -3,14 +3,27 @@ import {
   SET_ERRORS,
   SET_ALL_PROPERTIES,
   SET_TOTAL_COUNT,
-  CLEAR_PROPERTY
+  CLEAR_PROPERTY,
+  CLEAR_MESSAGE,
+  SET_MESSAGE
 } from "../types";
 import axios from "axios";
 
 export const updateProfile = profileDetails => async dispatch => {
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
   try {
     const profile = await axios.post("/api/profile/update", profileDetails);
-    dispatch(setProfile(profile.data));
+    dispatch({
+      type: SET_PROFILE,
+      payload: profile.data
+    });
+    dispatch({ type: SET_MESSAGE, payload: "updated successfully!" });
+    // dispatch(setProfile(profile.data));
+    dispatch({
+      type: CLEAR_MESSAGE
+    });
   } catch (err) {
     dispatch({
       type: SET_ERRORS,

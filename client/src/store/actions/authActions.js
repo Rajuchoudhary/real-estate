@@ -20,8 +20,6 @@ export const registerUser = (userData, history) => async dispatch => {
   try {
     const res = await axios.post("/api/user/register", userData);
 
-    console.log(res.data);
-
     dispatch({
       type: SET_MESSAGE,
       payload: res.data.msg

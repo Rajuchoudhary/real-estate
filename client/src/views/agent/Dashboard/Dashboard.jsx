@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import * as actions from "../../../store/actions";
 import { Link } from "react-router-dom";
 import { TextArea, Input } from "../../../components";
@@ -82,6 +83,9 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    if (Object.keys(this.props.message.msg).length > 0) {
+      toast.success(this.props.message.msg);
+    }
     const { profile } = this.props.profile;
     let renderContent;
     const options = [
@@ -256,6 +260,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    message: state.message,
     errors: state.errors,
     auth: state.auth,
     profile: state.profile,

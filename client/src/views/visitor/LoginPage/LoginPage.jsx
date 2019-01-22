@@ -42,8 +42,6 @@ class LoginPage extends React.Component {
     });
   };
   render() {
-    console.log("loginmsg", this.props.message.msg);
-
     let err;
 
     if (this.props.errors) {

@@ -21,13 +21,17 @@ export const addProperty = propertyDetails => async dispatch => {
   });
   try {
     const res = await axios.post("/api/property/add", propertyDetails);
+
     dispatch({
       type: SET_PROPERTY,
-      payload: res.data.property
+      payload: res.data.newProperty
     });
     dispatch({
       type: SET_MESSAGE,
       payload: res.data.msg
+    });
+    dispatch({
+      type: CLEAR_MESSAGE
     });
   } catch (err) {
     dispatch({

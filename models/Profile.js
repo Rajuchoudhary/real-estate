@@ -33,16 +33,13 @@ const profileSchema = new Schema({
   },
   socialMedia: {
     facebook: {
-      type: String,
-      default: "www.facebook.com"
+      type: String
     },
     twitter: {
-      type: String,
-      default: "www.twitter.com"
+      type: String
     },
     linkedin: {
-      type: String,
-      default: "www.linkedin.com"
+      type: String
     }
   },
   date: {
