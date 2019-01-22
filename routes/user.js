@@ -15,10 +15,6 @@ const User = require("../models/User");
 //Load Property Model
 const Property = require("../models/Property");
 
-router.get("/extra", (req, res) => {
-  res.send("hi there");
-});
-
 // @Route api/user/register
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -95,8 +91,6 @@ router.get(
     const currentPage = req.query.currentPage;
     const pageSize = req.query.pageSize;
 
-    console.log(req.user.id);
-
     const propertyList = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
     })
@@ -121,8 +115,6 @@ router.get(
   "/propertyCount",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log("count user id", req.user.id);
-
     const totalCount = await Property.find({
       user: mongoose.Types.ObjectId(req.user.id)
     }).countDocuments();
@@ -135,7 +127,7 @@ router.get(
   }
 );
 
-//get  user properties
+//get user properties list with user id to count total properties
 //@Route /api/user/property/:id
 router.get("/property/:id", async (req, res) => {
   if (mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -148,7 +140,7 @@ router.get("/property/:id", async (req, res) => {
       res.status(400).send("not found");
     }
   } else {
-    res.status(400).send({ err: "id not valid" });
+    res.status(400).send({ err: "not found" });
   }
 });
 

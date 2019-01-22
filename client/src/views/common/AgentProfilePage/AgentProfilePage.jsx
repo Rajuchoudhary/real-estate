@@ -26,7 +26,12 @@ class AgentProfilePage extends React.Component {
     }
 
     if (Object.keys(profile).length > 0) {
-      renderComponent = <AgentProfileUI profileData={profile} />;
+      renderComponent = (
+        <AgentProfileUI
+          profileData={profile}
+          totalCount={this.props.property.totalCount}
+        />
+      );
     }
     return <div className="container">{renderComponent}</div>;
   }
@@ -34,6 +39,7 @@ class AgentProfilePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    property: state.property,
     profile: state.profile
   };
 };

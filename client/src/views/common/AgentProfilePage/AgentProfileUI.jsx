@@ -6,11 +6,6 @@ class AgentProfileUI extends React.Component {
     const { about, mobile, skype, socialMedia } = this.props.profileData;
 
     let renderContent;
-    let totalProperties;
-
-    if (this.props.profileData.properties.length > 0) {
-      totalProperties = this.props.profileData.properties.length;
-    }
 
     if (Object.keys(this.props.profileData).length > 0) {
       renderContent = (
@@ -28,7 +23,7 @@ class AgentProfileUI extends React.Component {
                 {name}
                 <span className=" float-right m-auto badge badge-dark">
                   <i className="fa fa-home" />
-                  Total Properties: {totalProperties}
+                  Total Properties: {this.props.totalCount}
                 </span>
               </h5>
               <p>{about}</p>

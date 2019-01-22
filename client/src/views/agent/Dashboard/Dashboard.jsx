@@ -38,8 +38,6 @@ class Dashboard extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (Object.keys(nextProps.profile.profile).length > 0) {
       const profile = nextProps.profile.profile;
-      // console.log(Object.keys(nextProps.profile));
-      console.log(nextProps.profile);
 
       this.setState({
         propertyCount: this.props.property.totalCount,
@@ -84,8 +82,6 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    console.log(this.props.profile);
-
     const { profile } = this.props.profile;
     let renderContent;
     const options = [

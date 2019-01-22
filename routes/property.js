@@ -114,16 +114,18 @@ router.post(
 
     console.log("new data", PropertyDetails);
 
-    const property = await Property.findOne({ _id: req.body.id });
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const property = await Property.findOne({ _id: req.body.id });
 
-    if (property) {
-      const newProperty = await Property.findByIdAndUpdate(
-        req.body.id,
-        { $set: { ...PropertyDetails } },
-        { new: true }
-      );
+      if (property) {
+        const newProperty = await Property.findByIdAndUpdate(
+          req.body.id,
+          { $set: { ...PropertyDetails } },
+          { new: true }
+        );
 
-      res.status(200).send(newProperty);
+        res.status(200).send(newProperty);
+      }
     } else {
       res.status(400).send("not found");
     }
@@ -137,13 +139,16 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     console.log(req.query.id);
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const message = await Property.findByIdAndDelete({ _id: req.query.id });
 
-    const message = await Property.findByIdAndDelete({ _id: req.query.id });
-
-    if (message) {
-      res.status(200).send({ msg: "deleted" });
+      if (message) {
+        res.status(200).send({ msg: "deleted" });
+      } else {
+        res.status(400).send({ msg: "wrong" });
+      }
     } else {
-      res.status(400).send({ msg: "wrong" });
+      res.status(400).send({ err: "not found" });
     }
   }
 );
@@ -187,7 +192,7 @@ router.get("/:id", async (req, res) => {
     if (propertyDetail) {
       return res.status(200).send(propertyDetail);
     } else {
-      return res.status(400).send({ msg: "no found" });
+      return res.status(400).send({ msg: "not found" });
     }
   } else {
     res.status(400).send("Not found");

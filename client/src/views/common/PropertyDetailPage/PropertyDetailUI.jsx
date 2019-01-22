@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 class PropertyDetailUI extends React.Component {
   render() {
-    const { email } = this.props.property.user;
     const {
       title,
       imgUrl,
@@ -18,8 +17,8 @@ class PropertyDetailUI extends React.Component {
       features
     } = this.props.property;
 
-    const { _id } = this.props.agent.user;
-    const { name, about, mobile, skype } = this.props.agent;
+    const { _id, email, name } = this.props.agent.user;
+    const { about, mobile, skype } = this.props.agent;
     let statusColor = status === "rent" ? "warning" : "success";
     return (
       <React.Fragment>

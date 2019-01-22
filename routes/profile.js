@@ -11,18 +11,6 @@ const Property = require("../models/Property");
 //load validation function
 const validateUpdateProfile = require("../validation/profile");
 
-//@Route api/profile/
-// router.get(
-//   "/",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const profile = await Profile.findOne({
-//       user: mongoose.Types.ObjectId(req.user.id)
-//     }).populate("user", ["-password"]);
-//     res.status(200).send(profile);
-//   }
-// );
-
 //@Route /api/profile/update
 router.post(
   "/update",

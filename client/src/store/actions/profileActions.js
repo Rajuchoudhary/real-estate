@@ -27,7 +27,10 @@ export const getProfile = (id, history) => async dispatch => {
       `/api/user/property/${profile.data.user._id}`
     );
 
-    profile.data.properties = propertyList.data;
+    dispatch({
+      type: SET_TOTAL_COUNT,
+      payload: { totalCount: propertyList.data.length }
+    });
 
     dispatch(setProfile(profile.data));
   } catch (err) {

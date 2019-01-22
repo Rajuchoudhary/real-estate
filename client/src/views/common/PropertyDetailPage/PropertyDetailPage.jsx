@@ -15,18 +15,6 @@ class PropertyDetailPage extends React.Component {
 
     let renderComponent;
 
-    // if (property === null || Object.keys(property).length === 0) {
-    //   renderComponent = (
-    //     <div
-    //       style={{ width: "100%", height: "100vh" }}
-    //       className="d-flex align-items-center justify-content-center"
-    //     >
-    //       <Spinner color="primary" />
-    //     </div>
-    //   );
-    // }
-    console.log(property);
-
     if (Object.keys(property).length > 0) {
       renderComponent = (
         <PropertyDetailUI

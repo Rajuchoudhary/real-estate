@@ -48,8 +48,6 @@ class AgentPropertyListPage extends Component {
         </div>
       );
     }
-    console.log(this.props.property);
-    console.log(this.props.errors);
 
     if (Object.keys(this.props.errors).length > 0) {
       renderComponent = <p>no proerties found</p>;
