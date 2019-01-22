@@ -61,7 +61,7 @@ class GoogleMap extends React.Component {
         <div class="card-body">
           <h5 class="card-title">${item.title}</h5>
           <h6 class="card-text mb-3">Address: ${item.address}</h6>
-          <a href="http://localhost:3000/property-detail/${
+          <a href="/property-detail/${
             item._id
           }" class="btn btn-primary">View Details</a>
         </div>
