@@ -50,7 +50,13 @@ class AgentProfileUI extends React.Component {
                         FaceBook:
                         <span className="float-right">
                           <a
-                            href={socialMedia.facebook}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href={
+                              socialMedia.facebook === ""
+                                ? "http://www.facebook.com"
+                                : socialMedia.facebook
+                            }
                             className="btn btn-primary"
                           >
                             <i className="fa fa-facebook-f" />
@@ -61,7 +67,13 @@ class AgentProfileUI extends React.Component {
                         Twitter:
                         <span className="float-right">
                           <a
-                            href={socialMedia.twitter}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href={
+                              socialMedia.twitter === ""
+                                ? "http://www.twitter.com"
+                                : socialMedia.twitter
+                            }
                             className="btn btn-sm btn-primary"
                           >
                             <i className="fa fa-twitter" />
@@ -72,7 +84,13 @@ class AgentProfileUI extends React.Component {
                         LinkedIn:
                         <span className="float-right">
                           <a
-                            href={socialMedia.linkedin}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href={
+                              socialMedia.linkedin === ""
+                                ? "http://www.linkedin.com"
+                                : socialMedia.linkedin
+                            }
                             className="btn btn-sm btn-primary"
                           >
                             <i className="fa fa-linkedin" />

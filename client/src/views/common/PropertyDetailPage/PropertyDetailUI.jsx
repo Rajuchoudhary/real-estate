@@ -17,10 +17,15 @@ class PropertyDetailUI extends React.Component {
       features
     } = this.props.property;
 
-    const { _id, email, name } = this.props.agent.user;
+    let renderContent;
+    const { _id, email, name } = this.props.property.user;
+
+    console.log(this.props.agent);
+
     const { about, mobile, skype } = this.props.agent;
     let statusColor = status === "rent" ? "warning" : "success";
-    return (
+
+    renderContent = (
       <React.Fragment>
         <h1 className="display-4 my-5 text-center">{title}</h1>
         <div className="row mt-5">
@@ -159,6 +164,8 @@ class PropertyDetailUI extends React.Component {
         </div>
       </React.Fragment>
     );
+
+    return <React.Fragment>{renderContent}</React.Fragment>;
   }
 }
 

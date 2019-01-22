@@ -63,14 +63,47 @@ router.post(
 
 //@Route api/profile/:id
 router.get("/:id", async (req, res) => {
-  // console.log("user id", req.params.id);
+  console.log("user id", req.params.id);
 
   if (mongoose.Types.ObjectId.isValid(req.params.id)) {
     const profile = await Profile.findOne({
       user: mongoose.Types.ObjectId(req.params.id)
     }).populate("user", ["-password"]);
-    res.status(200).send(profile);
-    // console.log(profile);
+    console.log("before", profile);
+
+    if (profile === null) {
+      let userDetail = await User.find({ _id: req.params.id }).select([
+        "-password"
+      ]);
+
+      console.log(userDetail);
+
+      //set demo fields
+      const profile = {
+        user: {
+          name: userDetail[0].name,
+          email: userDetail[0].email,
+          _id: userDetail[0]._id
+        },
+        country: "",
+        address: "",
+        about: "",
+        mobile: "",
+        skype: "",
+        website: "",
+        socialMedia: {
+          facebook: "http://www.facebook.com",
+          twitter: "http://www.twitter.com",
+          linkedin: "http://www.linkedin.com"
+        }
+      };
+
+      console.log("demo profile", profile);
+
+      res.status(200).send(profile);
+    } else {
+      res.status(200).send(profile);
+    }
   } else {
     res.status(400).send("Not found");
   }

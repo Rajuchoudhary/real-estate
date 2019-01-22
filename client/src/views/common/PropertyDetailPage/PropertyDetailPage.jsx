@@ -12,10 +12,16 @@ class PropertyDetailPage extends React.Component {
 
   render() {
     const { property } = this.props.property;
-
     let renderComponent;
 
+    console.log(property);
+    if (property.user) {
+      console.log("yes user");
+      console.log(this.props.profile);
+    }
+
     if (Object.keys(property).length > 0) {
+      console.log(this.props.profile.profile);
       renderComponent = (
         <PropertyDetailUI
           property={property}

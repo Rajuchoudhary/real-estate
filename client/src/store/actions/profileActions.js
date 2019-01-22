@@ -23,14 +23,14 @@ export const getProfile = (id, history) => async dispatch => {
   try {
     const profile = await axios.get(`/api/profile/${id}`);
 
-    const propertyList = await axios.get(
-      `/api/user/property/${profile.data.user._id}`
-    );
+    const propertyList = await axios.get(`/api/user/property/${id}`);
 
     dispatch({
       type: SET_TOTAL_COUNT,
       payload: { totalCount: propertyList.data.length }
     });
+
+    console.log(profile.data);
 
     dispatch(setProfile(profile.data));
   } catch (err) {
